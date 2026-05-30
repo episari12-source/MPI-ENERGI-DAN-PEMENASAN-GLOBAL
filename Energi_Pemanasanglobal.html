@@ -1,0 +1,2282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart Physics Learning – Energi & Pemanasan Global</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+<!-- CSS Utility – menggantikan Tailwind tanpa CDN, tanpa warning -->
+<style>
+  /* ============================================================
+     UTILITY CSS – Pengganti Tailwind (tanpa CDN, tanpa warning)
+     Smart Physics Learning
+  ============================================================ */
+
+  /* Reset */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f0fdf9; color: #1e293b; transition: background 0.3s, color 0.3s; }
+
+  /* ── Layout ── */
+  .flex          { display: flex; }
+  .flex-col      { flex-direction: column; }
+  .flex-1        { flex: 1 1 0%; }
+  .flex-wrap     { flex-wrap: wrap; }
+  .flex-shrink-0 { flex-shrink: 0; }
+  .items-center  { align-items: center; }
+  .items-start   { align-items: flex-start; }
+  .justify-center    { justify-content: center; }
+  .justify-between   { justify-content: space-between; }
+  .justify-end       { justify-content: flex-end; }
+  .gap-1   { gap: 0.25rem; }
+  .gap-2   { gap: 0.5rem; }
+  .gap-3   { gap: 0.75rem; }
+  .gap-4   { gap: 1rem; }
+  .gap-5   { gap: 1.25rem; }
+  .gap-6   { gap: 1.5rem; }
+  .grid    { display: grid; }
+  .grid-cols-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .grid-cols-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  @media(min-width:768px){
+    .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .md\:flex        { display: flex; }
+    .md\:hidden      { display: none; }
+    .md\:gap-3       { gap: 0.75rem; }
+  }
+  @media(max-width:767px){
+    .md\:flex   { display: none; }
+    .md\:hidden { display: block; }
+    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
+  .hidden { display: none; }
+  .block  { display: block; }
+  .inline-flex { display: inline-flex; }
+  .overflow-hidden  { overflow: hidden; }
+  .overflow-x-auto  { overflow-x: auto; }
+  .overflow-y-auto  { overflow-y: auto; }
+  .relative { position: relative; }
+  .absolute { position: absolute; }
+  .fixed    { position: fixed; }
+  .sticky   { position: sticky; }
+  .inset-0  { top:0; right:0; bottom:0; left:0; }
+  .top-0    { top: 0; }
+  .left-0   { left: 0; }
+  .right-0  { right: 0; }
+  .bottom-0 { bottom: 0; }
+  .z-50  { z-index: 50; }
+  .z-100 { z-index: 100; }
+  .z-200 { z-index: 200; }
+  .w-full  { width: 100%; }
+  .w-5     { width: 1.25rem; }
+  .w-7     { width: 1.75rem; }
+  .w-8     { width: 2rem; }
+  .w-10    { width: 2.5rem; }
+  .w-20    { width: 5rem; }
+  .w-32    { width: 8rem; }
+  .w-48    { width: 12rem; }
+  .h-full  { height: 100%; }
+  .h-1     { height: 0.25rem; }
+  .h-1\.5  { height: 0.375rem; }
+  .h-2     { height: 0.5rem; }
+  .h-3     { height: 0.75rem; }
+  .h-5     { height: 1.25rem; }
+  .h-7     { height: 1.75rem; }
+  .h-8     { height: 2rem; }
+  .h-10    { height: 2.5rem; }
+  .h-16    { height: 4rem; }
+  .h-20    { height: 5rem; }
+  .h-40    { height: 10rem; }
+  .h-48    { height: 12rem; }
+  .h-52    { height: 13rem; }
+  .h-px    { height: 1px; }
+  .min-h-screen { min-height: 100vh; }
+  .min-w-0   { min-width: 0; }
+  .max-w-md  { max-width: 28rem; }
+  .max-w-xs  { max-width: 20rem; }
+  .max-w-screen-xl { max-width: 1280px; }
+  .mx-auto   { margin-left: auto; margin-right: auto; }
+  .mx-4      { margin-left: 1rem; margin-right: 1rem; }
+  .my-4      { margin-top: 1rem; margin-bottom: 1rem; }
+  .mb-1      { margin-bottom: 0.25rem; }
+  .mb-2      { margin-bottom: 0.5rem; }
+  .mb-3      { margin-bottom: 0.75rem; }
+  .mb-4      { margin-bottom: 1rem; }
+  .mb-5      { margin-bottom: 1.25rem; }
+  .mb-6      { margin-bottom: 1.5rem; }
+  .mb-8      { margin-bottom: 2rem; }
+  .mt-0\.5   { margin-top: 0.125rem; }
+  .mt-1      { margin-top: 0.25rem; }
+  .mt-2      { margin-top: 0.5rem; }
+  .mt-3      { margin-top: 0.75rem; }
+  .mt-4      { margin-top: 1rem; }
+  .mt-6      { margin-top: 1.5rem; }
+  .ml-auto   { margin-left: auto; }
+  .mr-2      { margin-right: 0.5rem; }
+  .p-2       { padding: 0.5rem; }
+  .p-2\.5    { padding: 0.625rem; }
+  .p-3       { padding: 0.75rem; }
+  .p-4       { padding: 1rem; }
+  .p-5       { padding: 1.25rem; }
+  .p-6       { padding: 1.5rem; }
+  .px-2      { padding-left: 0.5rem; padding-right: 0.5rem; }
+  .px-3      { padding-left: 0.75rem; padding-right: 0.75rem; }
+  .px-4      { padding-left: 1rem; padding-right: 1rem; }
+  .py-0\.5   { padding-top: 0.125rem; padding-bottom: 0.125rem; }
+  .py-1      { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+  .py-1\.5   { padding-top: 0.375rem; padding-bottom: 0.375rem; }
+  .py-2      { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+  .py-3      { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+  .pb-1      { padding-bottom: 0.25rem; }
+
+  /* ── Typography ── */
+  .text-xs    { font-size: 0.75rem; line-height: 1rem; }
+  .text-sm    { font-size: 0.875rem; line-height: 1.25rem; }
+  .text-base  { font-size: 1rem; line-height: 1.5rem; }
+  .text-lg    { font-size: 1.125rem; line-height: 1.75rem; }
+  .text-xl    { font-size: 1.25rem; line-height: 1.75rem; }
+  .text-2xl   { font-size: 1.5rem; line-height: 2rem; }
+  .text-3xl   { font-size: 1.875rem; line-height: 2.25rem; }
+  .text-4xl   { font-size: 2.25rem; line-height: 2.5rem; }
+  .text-5xl   { font-size: 3rem; line-height: 1; }
+  .font-medium   { font-weight: 500; }
+  .font-semibold { font-weight: 600; }
+  .font-bold     { font-weight: 700; }
+  .font-extrabold{ font-weight: 800; }
+  .font-mono     { font-family: 'Space Grotesk', monospace; }
+  .leading-relaxed { line-height: 1.625; }
+  .tracking-widest { letter-spacing: 0.1em; }
+  .uppercase    { text-transform: uppercase; }
+  .text-left    { text-align: left; }
+  .text-center  { text-align: center; }
+  .text-right   { text-align: right; }
+  .whitespace-nowrap { white-space: nowrap; }
+  .truncate { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  /* ── Colors ── */
+  .text-white      { color: #fff; }
+  .text-gray-400   { color: #9ca3af; }
+  .text-gray-500   { color: #6b7280; }
+  .text-gray-600   { color: #4b5563; }
+  .text-gray-700   { color: #374151; }
+  .text-gray-800   { color: #1f2937; }
+  .text-green-300  { color: #86efac; }
+  .text-green-500  { color: #22c55e; }
+  .text-green-600  { color: #16a34a; }
+  .text-green-700  { color: #15803d; }
+  .text-blue-600   { color: #2563eb; }
+  .text-blue-700   { color: #1d4ed8; }
+  .text-blue-300   { color: #93c5fd; }
+  .text-teal-600   { color: #0d9488; }
+  .text-teal-400   { color: #2dd4bf; }
+  .text-red-400    { color: #f87171; }
+  .text-red-500    { color: #ef4444; }
+  .text-red-600    { color: #dc2626; }
+  .text-red-700    { color: #b91c1c; }
+  .text-orange-700 { color: #c2410c; }
+  .text-purple-700 { color: #7e22ce; }
+  .text-purple-300 { color: #d8b4fe; }
+  .text-cyan-700   { color: #0e7490; }
+  .text-lime-700   { color: #4d7c0f; }
+  .text-pink-700   { color: #be185d; }
+  .text-yellow-700 { color: #a16207; }
+  .text-amber-700  { color: #b45309; }
+  .text-amber-800  { color: #92400e; }
+  .text-indigo-600 { color: #4f46e5; }
+  /* dark variants inline via .dark class on html/body */
+
+  .bg-white         { background-color: #fff; }
+  .bg-transparent   { background-color: transparent; }
+  .bg-green-50      { background-color: #f0fdf4; }
+  .bg-green-100     { background-color: #dcfce7; }
+  .bg-blue-50       { background-color: #eff6ff; }
+  .bg-blue-100      { background-color: #dbeafe; }
+  .bg-teal-100      { background-color: #ccfbf1; }
+  .bg-red-50        { background-color: #fef2f2; }
+  .bg-red-100       { background-color: #fee2e2; }
+  .bg-orange-50     { background-color: #fff7ed; }
+  .bg-orange-100    { background-color: #ffedd5; }
+  .bg-purple-50     { background-color: #faf5ff; }
+  .bg-purple-100    { background-color: #f3e8ff; }
+  .bg-yellow-50     { background-color: #fefce8; }
+  .bg-amber-50      { background-color: #fffbeb; }
+  .bg-pink-50       { background-color: #fdf2f8; }
+  .bg-pink-100      { background-color: #fce7f3; }
+  .bg-cyan-50       { background-color: #ecfeff; }
+  .bg-lime-50       { background-color: #f7fee7; }
+  .bg-gray-50       { background-color: #f9fafb; }
+  .bg-gray-100      { background-color: #f3f4f6; }
+  .bg-gray-700      { background-color: #374151; }
+  .bg-gray-800      { background-color: #1f2937; }
+
+  /* Gradient backgrounds */
+  .bg-gradient-to-r    { background-image: linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to)); }
+  .bg-gradient-to-br   { background-image: linear-gradient(to bottom right, var(--tw-gradient-from), var(--tw-gradient-to)); }
+  .from-green-50       { --tw-gradient-from: #f0fdf4; }
+  .from-green-400      { --tw-gradient-from: #4ade80; }
+  .from-green-500      { --tw-gradient-from: #22c55e; }
+  .from-transparent    { --tw-gradient-from: transparent; }
+  .to-teal-50          { --tw-gradient-to: #f0fdfa; }
+  .to-teal-400         { --tw-gradient-to: #2dd4bf; }
+  .to-teal-500         { --tw-gradient-to: #14b8a6; }
+  .to-transparent      { --tw-gradient-to: transparent; }
+  .via-green-400       { --tw-gradient-via: #4ade80; }
+  .bg-gradient-to-r.from-transparent.via-green-400.to-transparent {
+    background-image: linear-gradient(to right, transparent, #4ade80, transparent);
+  }
+
+  /* ── Borders / Rounded ── */
+  .border       { border: 1px solid #e2e8f0; }
+  .border-2     { border: 2px solid; }
+  .border-green-200 { border-color: #bbf7d0; }
+  .border-green-700 { border-color: #15803d; }
+  .border-orange-200{ border-color: #fed7aa; }
+  .border-orange-700{ border-color: #c2410c; }
+  .border-cyan-700  { border-color: #0e7490; }
+  .rounded        { border-radius: 0.25rem; }
+  .rounded-lg     { border-radius: 0.5rem; }
+  .rounded-xl     { border-radius: 0.75rem; }
+  .rounded-2xl    { border-radius: 1rem; }
+  .rounded-full   { border-radius: 9999px; }
+  .rounded-none   { border-radius: 0; }
+
+  /* ── Shadows ── */
+  .shadow     { box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06); }
+  .shadow-lg  { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
+  .shadow-green-200 { box-shadow: 0 10px 15px -3px rgba(134,239,172,0.4); }
+
+  /* ── Sizing helpers ── */
+  .space-y-1   > * + * { margin-top: 0.25rem; }
+  .space-y-1\.5> * + * { margin-top: 0.375rem; }
+  .space-y-2   > * + * { margin-top: 0.5rem; }
+  .space-y-3   > * + * { margin-top: 0.75rem; }
+  .space-y-4   > * + * { margin-top: 1rem; }
+  .space-x-4   > * + * { margin-left: 1rem; }
+
+  /* ── Misc ── */
+  .cursor-pointer { cursor: pointer; }
+  .select-none    { user-select: none; }
+  .resize-vertical{ resize: vertical; }
+  .object-cover   { object-fit: cover; }
+  .transition-colors { transition: color 0.15s, background-color 0.15s, border-color 0.15s; }
+  .accent-green-500  { accent-color: #22c55e; }
+  .accent-teal-500   { accent-color: #14b8a6; }
+  .accent-purple-500 { accent-color: #a855f7; }
+  .accent-indigo-500 { accent-color: #6366f1; }
+  .accent-red-500    { accent-color: #ef4444; }
+
+  /* ── Dark mode utility overrides ── */
+  .dark .text-gray-300  { color: #d1d5db; }
+  .dark .text-gray-400  { color: #9ca3af; }
+  .dark .bg-gray-700    { background-color: #374151; }
+  .dark .bg-gray-800    { background-color: #1f2937; }
+  .dark .hover\:bg-gray-600:hover  { background-color: #4b5563; }
+  .dark .hover\:bg-gray-700:hover  { background-color: #374151; }
+  .dark .border-green-700 { border-color: #15803d; }
+
+  /* ── Hover states ── */
+  .hover\:bg-gray-100:hover  { background-color: #f3f4f6; }
+  .hover\:bg-gray-200:hover  { background-color: #e5e7eb; }
+  .hover\:border-green-300:hover { border-color: #86efac; }
+
+  /* ============================================================
+     KOMPONEN KUSTOM – Desain Utama
+  ============================================================ */
+
+  /* ── Dark mode global ── */
+  .dark body, body.dark { background: #0f172a; color: #e2e8f0; }
+  .dark .card         { background: #1e293b; border-color: #334155; }
+  .dark .nav-bar      { background: rgba(15,23,42,0.95); border-color: #334155; }
+  .dark .sidebar      { background: #1e293b; border-color: #334155; }
+  .dark .input-field  { background: #0f172a; border-color: #334155; color: #e2e8f0; }
+  .dark .quiz-btn     { background: #334155; color: #e2e8f0; border-color: #475569; }
+  .dark .quiz-btn:hover { background: #1d4ed8; border-color: #3b82f6; }
+  .dark .section-card { background: #1e293b; }
+  .dark .sim-canvas   { background: #0f172a; }
+  .dark .progress-track { background: #334155; }
+  .dark .tab-btn      { color: #94a3b8; }
+  .dark .tab-btn.active { color: #22c55e; }
+  .dark .mat-card     { background: #1e293b; }
+  .dark .refleksi-area{ background: #0f172a; border-color: #334155; color: #e2e8f0; }
+  .dark .text-gray-500 { color: #94a3b8; }
+  .dark .text-gray-600 { color: #cbd5e1; }
+  .dark .text-gray-700 { color: #e2e8f0; }
+  .dark .text-gray-800 { color: #f1f5f9; }
+  .dark .text-amber-700 { color: #fcd34d; }
+  .dark .text-amber-800 { color: #fbbf24; }
+  .dark .text-green-700 { color: #4ade80; }
+  .dark .text-green-800 { color: #86efac; }
+  .dark .text-blue-700  { color: #93c5fd; }
+  .dark .text-red-700   { color: #fca5a5; }
+  .dark .text-teal-600  { color: #2dd4bf; }
+  .dark .text-orange-700{ color: #fdba74; }
+  .dark .text-purple-700{ color: #c4b5fd; }
+  .dark .text-cyan-700  { color: #67e8f9; }
+  .dark .text-lime-700  { color: #bef264; }
+  .dark .text-pink-700  { color: #f9a8d4; }
+  .dark .text-yellow-700{ color: #fde047; }
+  .dark .bg-gray-50     { background-color: #1e293b; }
+  .dark .bg-gray-800    { background-color: #0f172a; }
+  .dark .bg-green-50    { background-color: rgba(22,163,74,0.15); }
+  .dark .bg-blue-50     { background-color: rgba(37,99,235,0.15); }
+  .dark .bg-red-50      { background-color: rgba(239,68,68,0.15); }
+  .dark .bg-orange-50   { background-color: rgba(234,88,12,0.15); }
+  .dark .bg-purple-50   { background-color: rgba(126,34,206,0.15); }
+  .dark .bg-teal-100    { background-color: rgba(13,148,136,0.2); }
+  .dark .bg-green-100   { background-color: rgba(22,163,74,0.2); }
+  .dark .bg-blue-100    { background-color: rgba(37,99,235,0.2); }
+  .dark .bg-red-100     { background-color: rgba(239,68,68,0.2); }
+  .dark .bg-orange-100  { background-color: rgba(234,88,12,0.2); }
+  .dark .bg-purple-100  { background-color: rgba(126,34,206,0.2); }
+  .dark .bg-yellow-50   { background-color: rgba(161,98,7,0.15); }
+  .dark .bg-amber-50    { background-color: rgba(180,83,9,0.15); }
+  .dark .bg-pink-50     { background-color: rgba(190,24,93,0.15); }
+  .dark .bg-pink-100    { background-color: rgba(190,24,93,0.2); }
+  .dark .bg-cyan-50     { background-color: rgba(14,116,144,0.15); }
+  .dark .bg-lime-50     { background-color: rgba(77,124,15,0.15); }
+
+  /* ── Gradient bg mesh ── */
+  .bg-mesh {
+    background: linear-gradient(135deg, #f0fdf9 0%, #d1fae5 25%, #e0f2fe 50%, #ecfdf5 75%, #eff6ff 100%);
+  }
+  .dark .bg-mesh {
+    background: linear-gradient(135deg, #0f172a 0%, #0c2017 25%, #0c1a2e 50%, #0f172a 75%, #0f172a 100%);
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: white; border: 1px solid #e2e8f0; border-radius: 1.25rem;
+    box-shadow: 0 4px 24px -4px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px -4px rgba(0,0,0,0.1); }
+
+  /* ── Nav ── */
+  .nav-bar {
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
+    border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    background: white; border-right: 1px solid #e2e8f0;
+    width: 260px; min-width: 260px; height: calc(100vh - 64px);
+    position: sticky; top: 64px; overflow-y: auto; overflow-x: hidden; transition: transform 0.3s;
+  }
+  @media(max-width:768px){
+    .sidebar { position: fixed; top:64px; left:0; z-index:50; transform: translateX(-100%); height:100vh; }
+    .sidebar.open { transform: translateX(0); }
+    .md\:hidden  { display: block !important; }
+    .md\:flex    { display: none !important; }
+    .grid-cols-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  }
+
+  /* ── Progress ── */
+  .progress-track { background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+  .progress-fill  { background: linear-gradient(90deg, #16a34a, #0d9488); border-radius:999px; height:100%; transition: width 0.6s cubic-bezier(.4,0,.2,1); }
+
+  /* ── Animations ── */
+  @keyframes fadeUp    { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);} }
+  @keyframes pulse-glow{ 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.4);}50%{box-shadow:0 0 0 8px rgba(34,197,94,0);} }
+  @keyframes spin      { to{transform:rotate(360deg);} }
+  @keyframes float     { 0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);} }
+  @keyframes bounce-in { 0%{transform:scale(0.5);opacity:0;}70%{transform:scale(1.1);}100%{transform:scale(1);opacity:1;} }
+
+  .fade-up    { animation: fadeUp 0.5s ease forwards; }
+  .float-anim { animation: float 3s ease-in-out infinite; }
+  .spinner    { animation: spin 1s linear infinite; }
+  .bounce-in  { animation: bounce-in 0.4s ease forwards; }
+
+  /* ── Gradient text ── */
+  .grad-text {
+    background: linear-gradient(135deg, #16a34a, #0d9488, #2563eb);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    background: linear-gradient(135deg, #16a34a, #0d9488); color: white; border: none;
+    border-radius: 0.75rem; padding: 0.75rem 1.75rem; font-weight:700; cursor:pointer;
+    transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 4px 14px rgba(22,163,74,0.35);
+    font-family: inherit; font-size: 0.9rem;
+  }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow: 0 6px 20px rgba(22,163,74,0.45); }
+  .btn-primary:active { transform:translateY(0); }
+  .btn-outline {
+    background:transparent; color:#16a34a; border: 2px solid #16a34a; border-radius:0.75rem;
+    padding: 0.6rem 1.5rem; font-weight:600; cursor:pointer; transition: background 0.15s, color 0.15s;
+    font-family: inherit; font-size: 0.875rem;
+  }
+  .btn-outline:hover { background:#16a34a; color:white; }
+
+  /* ── Quiz ── */
+  .quiz-btn {
+    background:#f8fafc; border: 2px solid #e2e8f0; border-radius:0.75rem;
+    padding:0.75rem 1rem; text-align:left; cursor:pointer; width:100%;
+    transition: all 0.15s; font-family: inherit; font-size:0.9rem;
+  }
+  .quiz-btn:hover { border-color:#16a34a; background:#f0fdf4; }
+  .quiz-btn.correct { border-color:#16a34a; background:#f0fdf4; color:#166534; }
+  .quiz-btn.wrong   { border-color:#ef4444; background:#fef2f2; color:#dc2626; }
+
+  /* ── Simulation canvas ── */
+  .sim-canvas { background: #f8fafc; border-radius:1rem; overflow:hidden; }
+
+  /* ── Toast ── */
+  .toast-container { position:fixed; bottom:1.5rem; right:1.5rem; z-index:999; display:flex; flex-direction:column; gap:0.5rem; }
+  .toast {
+    background:white; border-radius:0.75rem; padding:0.75rem 1.25rem;
+    box-shadow:0 8px 24px rgba(0,0,0,0.12); border-left:4px solid #16a34a;
+    display:flex; align-items:center; gap:0.75rem; min-width:280px;
+    animation: fadeUp 0.3s ease; font-size:0.875rem; font-weight:500;
+  }
+  .toast.error { border-left-color:#ef4444; }
+  .toast.info  { border-left-color:#3b82f6; }
+
+  /* ── Loading screen ── */
+  #loading-screen {
+    position:fixed; inset:0; z-index:9999;
+    background: linear-gradient(135deg, #0f172a, #1a2e1a);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.5rem;
+  }
+  .loading-logo { width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,#16a34a,#0d9488); display:flex; align-items:center; justify-content:center; animation:pulse-glow 2s infinite; }
+
+  /* ── Certificate ── */
+  .cert-card {
+    background:white; border-radius:1.5rem; padding:3rem;
+    max-width:600px; width:90%; text-align:center; border: 8px solid transparent;
+    background-clip: padding-box; box-shadow: 0 0 0 4px #16a34a, 0 20px 60px rgba(0,0,0,0.3);
+    animation: bounce-in 0.5s ease;
+  }
+
+  /* ── Pages ── */
+  .page { display:none; }
+  .page.active { display:block; }
+
+  /* ── Input fields ── */
+  .input-field {
+    background:white; border: 2px solid #e2e8f0; border-radius:0.75rem;
+    padding:0.75rem 1rem; width:100%; font-family:inherit; font-size:1rem;
+    transition: border-color 0.15s, box-shadow 0.15s; outline:none;
+  }
+  .input-field:focus { border-color:#16a34a; box-shadow:0 0 0 3px rgba(22,163,74,0.15); }
+
+  /* ── Tabs ── */
+  .tab-btn { cursor:pointer; padding:0.5rem 1rem; border-radius:0.5rem; font-weight:600; font-size:0.875rem; transition:all 0.15s; color:#64748b; background:none; border:none; font-family:inherit; white-space:nowrap; }
+  .tab-btn.active { background:#f0fdf4; color:#16a34a; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+
+  /* ── Mat cards ── */
+  .mat-card { background:white; border-radius:1rem; padding:1.25rem 1.5rem; border-left: 4px solid #16a34a; margin-bottom:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+
+  /* ── Sidebar menu items ── */
+  .menu-item { display:flex; align-items:center; gap:0.75rem; padding:0.6rem 1rem; border-radius:0.75rem; cursor:pointer; transition:all 0.15s; font-size:0.875rem; font-weight:500; color:#64748b; }
+  .menu-item:hover { background:#f0fdf4; color:#16a34a; }
+  .menu-item.active { background:linear-gradient(135deg,#16a34a,#0d9488); color:white; }
+  .menu-item.done .check { display:inline-block; }
+  .menu-item .check { display:none; }
+
+  /* ── Refleksi textarea ── */
+  .refleksi-area { width:100%; border: 2px solid #e2e8f0; border-radius:0.75rem; padding:0.75rem 1rem; font-family:inherit; font-size:0.875rem; resize:vertical; min-height:80px; transition:border-color 0.15s; outline:none; background:white; }
+  .refleksi-area:focus { border-color:#16a34a; box-shadow:0 0 0 3px rgba(22,163,74,0.15); }
+
+  /* ── Energy icons ── */
+  .energy-icon { width:56px; height:56px; border-radius:1rem; display:flex; align-items:center; justify-content:center; font-size:1.75rem; flex-shrink:0; }
+
+  /* ── Sidebar stats box ── */
+  .stats-box {
+    margin-top: 1.5rem; padding: 0.75rem;
+    background: linear-gradient(135deg, #f0fdf4, #f0fdfa);
+    border-radius: 0.75rem;
+  }
+  .dark .stats-box { background: linear-gradient(135deg, rgba(22,163,74,0.1), rgba(13,148,136,0.1)); }
+
+  /* ── Nav user badge ── */
+  .user-badge {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: #f0fdf4; padding: 0.375rem 0.75rem; border-radius: 0.5rem;
+  }
+  .dark .user-badge { background: rgba(22,163,74,0.15); }
+
+  /* ── Nav sidebar button ── */
+  .sidebar-toggle-btn {
+    padding: 0.5rem; border-radius: 0.5rem; background: none; border: none;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .sidebar-toggle-btn:hover { background: #f3f4f6; }
+  .dark .sidebar-toggle-btn:hover { background: #374151; }
+
+  /* ── Dark mode toggle button ── */
+  .dark-toggle-btn {
+    padding: 0.5rem; border-radius: 0.5rem; background: #f3f4f6; border: none;
+    cursor: pointer; transition: background 0.15s; font-size: 1rem;
+  }
+  .dark-toggle-btn:hover { background: #e5e7eb; }
+  .dark .dark-toggle-btn { background: #374151; }
+  .dark .dark-toggle-btn:hover { background: #4b5563; }
+
+  /* ── Responsive helper ── */
+  @media(max-width:767px){
+    .grid-cols-2 { grid-template-columns: 1fr 1fr; }
+    .btn-primary, .btn-outline { padding: 0.6rem 1.1rem; font-size: 0.82rem; }
+    h1.text-2xl { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body class="bg-mesh min-h-screen">
+
+<!-- ===== LOADING SCREEN ===== -->
+<div id="loading-screen">
+  <div class="loading-logo">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 4L36 12V28L20 36L4 28V12L20 4Z" fill="white" opacity="0.9"/><path d="M20 10L30 15.5V26.5L20 32L10 26.5V15.5L20 10Z" fill="white" opacity="0.5"/></svg>
+  </div>
+  <div class="text-white text-center">
+    <div class="text-2xl font-bold mb-1">Smart Physics Learning</div>
+    <div class="text-green-300 text-sm">Memuat media pembelajaran...</div>
+  </div>
+  <div style="width:12rem;height:0.25rem;background:#374151;border-radius:9999px;overflow:hidden">
+    <div id="load-bar" style="width:0%;height:100%;background:linear-gradient(90deg,#4ade80,#2dd4bf);border-radius:9999px;transition:width 0.1s"></div>
+  </div>
+</div>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ===== CERTIFICATE MODAL ===== -->
+<div id="certificate" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+  <div class="cert-card">
+    <div class="text-5xl mb-4">🏆</div>
+    <div class="text-xs font-bold text-green-600 tracking-widest uppercase mb-1">Sertifikat Penyelesaian</div>
+    <h2 class="text-2xl font-bold text-gray-800 mb-1">SMART PHYSICS LEARNING</h2>
+    <p class="text-gray-500 text-sm mb-4">Energi dan Pemanasan Global · Fisika Fase E</p>
+    <div style="width:100%;height:1px;background:linear-gradient(to right,transparent,#4ade80,transparent);margin:1rem 0"></div>
+    <p class="text-gray-600 mb-2">Diberikan kepada:</p>
+    <p class="text-2xl font-bold text-gray-800 mb-1" id="cert-name">—</p>
+    <p class="text-gray-500" id="cert-kelas">—</p>
+    <div style="width:100%;height:1px;background:linear-gradient(to right,transparent,#4ade80,transparent);margin:1rem 0"></div>
+    <p class="text-sm text-gray-500 mb-1">Nilai Latihan: <strong id="cert-nilai" class="text-green-600">—</strong></p>
+    <p class="text-xs text-gray-400 mb-6" id="cert-date">—</p>
+    <div class="flex gap-3 justify-center">
+      <button class="btn-primary text-sm" onclick="printCert()">🖨️ Cetak / Simpan PDF</button>
+      <button class="btn-outline text-sm" onclick="closeCert()">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN APP (hidden until login) ===== -->
+<div id="app" style="display:none;">
+
+  <!-- NAV BAR -->
+  <nav class="nav-bar" style="height:4rem;">
+    <div style="max-width:1280px;margin:0 auto;padding:0 1rem;height:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+      <div class="flex items-center gap-3">
+        <button id="sidebar-toggle" class="sidebar-toggle-btn" onclick="toggleSidebar()" style="display:none;" id="sidebar-toggle">
+          <svg style="width:1.25rem;height:1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="flex items-center gap-2">
+          <div style="width:2rem;height:2rem;border-radius:0.5rem;background:linear-gradient(135deg,#22c55e,#14b8a6);display:flex;align-items:center;justify-content:center;">
+            <svg width="16" height="16" viewBox="0 0 40 40" fill="white"><path d="M20 4L36 12V28L20 36L4 28V12L20 4Z"/></svg>
+          </div>
+          <span class="font-bold grad-text" style="font-size:0.95rem;">Smart Physics</span>
+        </div>
+      </div>
+      <!-- Progress Overview -->
+      <div id="nav-progress-wrap" style="display:flex;align-items:center;gap:0.75rem;flex:1;max-width:20rem;margin:0 1rem;">
+        <span class="text-xs text-gray-500" style="white-space:nowrap">Progress:</span>
+        <div class="progress-track" style="height:0.5rem;flex:1;"><div class="progress-fill" id="nav-progress" style="width:0%"></div></div>
+        <span class="text-xs font-bold text-green-600" id="nav-progress-text">0%</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="user-badge" id="nav-user-badge">
+          <span style="font-size:1.125rem;">👤</span>
+          <div>
+            <div class="text-xs font-bold text-green-700" id="nav-nama">—</div>
+            <div class="text-xs text-gray-500" id="nav-kelas">—</div>
+          </div>
+        </div>
+        <!-- Dark mode toggle -->
+        <button onclick="toggleDark()" class="dark-toggle-btn" title="Dark Mode">
+          <span id="dark-icon">🌙</span>
+        </button>
+        <button onclick="logout()" class="btn-outline" style="font-size:0.75rem;padding:0.375rem 0.75rem;">Keluar</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- LAYOUT -->
+  <div style="display:flex;max-width:1280px;margin:0 auto;">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar p-4" id="sidebar">
+      <div class="mb-4">
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest px-2 mb-2">Menu Belajar</p>
+      </div>
+      <nav class="flex flex-col gap-1">
+        <div class="menu-item active" id="menu-petunjuk" onclick="goPage('petunjuk')">
+          <span>📋</span><span>Petunjuk Belajar</span><span class="check ml-auto text-xs">✅</span>
+        </div>
+        <div class="menu-item" id="menu-tujuan" onclick="goPage('tujuan')">
+          <span>🎯</span><span>Tujuan Pembelajaran</span><span class="check ml-auto text-xs">✅</span>
+        </div>
+        <div class="menu-item" id="menu-waktu" onclick="goPage('waktu')">
+          <span>⏱️</span><span>Alokasi Waktu</span><span class="check ml-auto text-xs">✅</span>
+        </div>
+        <div class="menu-item" id="menu-apersepsi" onclick="goPage('apersepsi')">
+          <span>💡</span><span>Apersepsi</span><span class="check ml-auto text-xs">✅</span>
+        </div>
+        <div class="menu-item" id="menu-materi" onclick="goPage('materi')">
+          <span>📚</span><span>Materi Utama</span><span class="check ml-auto text-xs">✅</span>
+        </div>
+        <div class="menu-item" id="menu-simulasi" onclick="goPage('simulasi')">
+          <span>🔬</span><span>Simulasi Interaktif</span><span class="check ml-auto text-xs">✅</span>
+        </div>
+        <div class="menu-item" id="menu-contohsoal" onclick="goPage('contohsoal')">
+          <span>📝</span><span>Contoh Soal</span><span class="check ml-auto text-xs">✅</span>
+        </div>
+        <div class="menu-item" id="menu-latihan" onclick="goPage('latihan')">
+          <span>✏️</span><span>Latihan Soal</span><span class="check ml-auto text-xs">✅</span>
+        </div>
+        <div class="menu-item" id="menu-refleksi" onclick="goPage('refleksi')">
+          <span>🪞</span><span>Refleksi</span><span class="check ml-auto text-xs">✅</span>
+        </div>
+      </nav>
+      <!-- Stats -->
+      <div class="mt-6 p-3 bg-gradient-to-br from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-xl">
+        <p class="text-xs font-bold text-gray-500 mb-2">Statistik Belajar</p>
+        <div class="flex justify-between text-xs mb-1"><span class="text-gray-500">Nilai Latihan</span><strong class="text-green-600" id="sb-nilai">—</strong></div>
+        <div class="flex justify-between text-xs mb-1"><span class="text-gray-500">Status</span><strong class="text-blue-600" id="sb-status">Belum Mulai</strong></div>
+        <div class="flex justify-between text-xs"><span class="text-gray-500">Waktu Mulai</span><strong class="text-gray-600" id="sb-waktu">—</strong></div>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="flex-1 p-4 md:p-6 min-w-0">
+
+      <!-- ============ PAGE: PETUNJUK ============ -->
+      <div class="page active" id="page-petunjuk">
+        <div class="fade-up">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="energy-icon bg-blue-100 dark:bg-blue-900/30">📋</div>
+            <div>
+              <h1 class="text-2xl font-extrabold">Petunjuk Belajar</h1>
+              <p class="text-gray-500 text-sm">Baca dengan seksama sebelum memulai</p>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4 mb-6">
+            <div class="card p-5">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-2xl">🎓</span>
+                <h3 class="font-bold text-lg">Cara Menggunakan Media</h3>
+              </div>
+              <ol class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                <li class="flex gap-2"><span class="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold flex-shrink-0">1</span> Baca tujuan pembelajaran terlebih dahulu</li>
+                <li class="flex gap-2"><span class="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold flex-shrink-0">2</span> Pelajari materi secara berurutan dari menu di kiri</li>
+                <li class="flex gap-2"><span class="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold flex-shrink-0">3</span> Lakukan simulasi interaktif untuk memahami konsep</li>
+                <li class="flex gap-2"><span class="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold flex-shrink-0">4</span> Kerjakan latihan soal secara mandiri dan jujur</li>
+                <li class="flex gap-2"><span class="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold flex-shrink-0">5</span> Isi refleksi belajar di akhir sesi</li>
+              </ol>
+            </div>
+            <div class="card p-5">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-2xl">⚖️</span>
+                <h3 class="font-bold text-lg">Aturan Pengerjaan</h3>
+              </div>
+              <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                <li class="flex gap-2 items-start"><span class="text-green-500 mt-0.5">✓</span> Kerjakan latihan secara mandiri tanpa menyontek</li>
+                <li class="flex gap-2 items-start"><span class="text-green-500 mt-0.5">✓</span> Setiap soal hanya dapat dijawab sekali</li>
+                <li class="flex gap-2 items-start"><span class="text-green-500 mt-0.5">✓</span> Nilai akan tersimpan otomatis ke database</li>
+                <li class="flex gap-2 items-start"><span class="text-green-500 mt-0.5">✓</span> Isi refleksi dengan jujur dan sungguh-sungguh</li>
+                <li class="flex gap-2 items-start"><span class="text-red-400 mt-0.5">✗</span> Jangan menutup halaman saat mengerjakan latihan</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card p-5 bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 border-green-200">
+            <div class="flex items-center gap-3">
+              <span class="text-3xl float-anim">🌱</span>
+              <div>
+                <h3 class="font-bold text-green-800 dark:text-green-300">Selamat Belajar!</h3>
+                <p class="text-sm text-green-700 dark:text-green-400">Media ini dirancang untuk membantumu memahami <strong>Energi dan Pemanasan Global</strong> secara menyenangkan. Gunakan waktu belajar sebaik mungkin!</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-end mt-6">
+            <button class="btn-primary" onclick="nextPage('tujuan')">Lanjut → Tujuan Pembelajaran</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE: TUJUAN ============ -->
+      <div class="page" id="page-tujuan">
+        <div class="fade-up">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="energy-icon bg-yellow-100">🎯</div>
+            <div>
+              <h1 class="text-2xl font-extrabold">Tujuan Pembelajaran</h1>
+              <p class="text-gray-500 text-sm">Fisika Fase E – Kurikulum Merdeka</p>
+            </div>
+          </div>
+          <div class="card p-5 mb-4">
+            <div class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3">Capaian Pembelajaran</div>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Peserta didik mampu memahami konsep energi, bentuk-bentuk energi, dan kaitannya dengan gaya dan gerak, serta menganalisis dampak penggunaan energi terhadap lingkungan global melalui fenomena pemanasan global.</p>
+          </div>
+          <div class="grid md:grid-cols-2 gap-3 mb-4">
+            <div class="mat-card">
+              <div class="flex items-start gap-3">
+                <span class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">TP1</span>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Menjelaskan pengertian energi dan berbagai bentuk energi dalam kehidupan sehari-hari</p>
+              </div>
+            </div>
+            <div class="mat-card">
+              <div class="flex items-start gap-3">
+                <span class="w-7 h-7 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">TP2</span>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Menganalisis hubungan antara gaya dan gerak terhadap perubahan energi kinetik dan potensial</p>
+              </div>
+            </div>
+            <div class="mat-card">
+              <div class="flex items-start gap-3">
+                <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">TP3</span>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Menerapkan hukum kekekalan energi dalam penyelesaian masalah kontekstual</p>
+              </div>
+            </div>
+            <div class="mat-card">
+              <div class="flex items-start gap-3">
+                <span class="w-7 h-7 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">TP4</span>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Membedakan sumber energi terbarukan dan tidak terbarukan beserta contohnya</p>
+              </div>
+            </div>
+            <div class="mat-card">
+              <div class="flex items-start gap-3">
+                <span class="w-7 h-7 rounded-full bg-red-100 text-red-700 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">TP5</span>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Menganalisis penyebab, dampak, dan solusi pemanasan global terhadap kehidupan</p>
+              </div>
+            </div>
+            <div class="mat-card">
+              <div class="flex items-start gap-3">
+                <span class="w-7 h-7 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">TP6</span>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Merancang solusi kreatif dalam mengatasi masalah energi dan pemanasan global di lingkungan sekitar</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-between mt-6">
+            <button class="btn-outline" onclick="goPage('petunjuk')">← Kembali</button>
+            <button class="btn-primary" onclick="nextPage('waktu')">Lanjut → Alokasi Waktu</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE: WAKTU ============ -->
+      <div class="page" id="page-waktu">
+        <div class="fade-up">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="energy-icon bg-purple-100">⏱️</div>
+            <div>
+              <h1 class="text-2xl font-extrabold">Alokasi Waktu Belajar</h1>
+              <p class="text-gray-500 text-sm">Total estimasi: 55 menit</p>
+            </div>
+          </div>
+          <!-- Total Progress Circle -->
+          <div class="card p-6 mb-5 text-center">
+            <div class="text-5xl font-extrabold grad-text mb-1">55</div>
+            <div class="text-gray-500 font-medium">Menit Total Belajar</div>
+            <div class="w-32 h-1 bg-gradient-to-r from-green-400 to-teal-400 rounded mx-auto mt-3"></div>
+          </div>
+          <div class="space-y-3">
+            <div class="card p-4">
+              <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="energy-icon bg-blue-100 w-10 h-10 rounded-lg text-xl">📋</div>
+                  <div><div class="font-semibold text-sm">Petunjuk & Tujuan</div><div class="text-xs text-gray-500">Orientasi awal</div></div>
+                </div>
+                <div class="text-right"><span class="font-bold text-blue-600">5 mnt</span></div>
+              </div>
+              <div class="progress-track h-1.5 mt-3"><div class="progress-fill" style="width:9%"></div></div>
+            </div>
+            <div class="card p-4">
+              <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="energy-icon bg-green-100 w-10 h-10 rounded-lg text-xl">📚</div>
+                  <div><div class="font-semibold text-sm">Apersepsi + Materi Utama</div><div class="text-xs text-gray-500">Membaca & memahami konsep</div></div>
+                </div>
+                <div class="text-right"><span class="font-bold text-green-600">15 mnt</span></div>
+              </div>
+              <div class="progress-track h-1.5 mt-3"><div class="progress-fill" style="width:27%"></div></div>
+            </div>
+            <div class="card p-4">
+              <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="energy-icon bg-teal-100 w-10 h-10 rounded-lg text-xl">🔬</div>
+                  <div><div class="font-semibold text-sm">Simulasi Interaktif</div><div class="text-xs text-gray-500">Eksplorasi konsep fisika</div></div>
+                </div>
+                <div class="text-right"><span class="font-bold text-teal-600">10 mnt</span></div>
+              </div>
+              <div class="progress-track h-1.5 mt-3"><div class="progress-fill" style="width:18%"></div></div>
+            </div>
+            <div class="card p-4">
+              <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="energy-icon bg-orange-100 w-10 h-10 rounded-lg text-xl">✏️</div>
+                  <div><div class="font-semibold text-sm">Latihan Soal</div><div class="text-xs text-gray-500">Pengerjaan mandiri</div></div>
+                </div>
+                <div class="text-right"><span class="font-bold text-orange-600">20 mnt</span></div>
+              </div>
+              <div class="progress-track h-1.5 mt-3"><div class="progress-fill" style="width:36%"></div></div>
+            </div>
+            <div class="card p-4">
+              <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="energy-icon bg-pink-100 w-10 h-10 rounded-lg text-xl">🪞</div>
+                  <div><div class="font-semibold text-sm">Refleksi Belajar</div><div class="text-xs text-gray-500">Introspeksi dan komitmen</div></div>
+                </div>
+                <div class="text-right"><span class="font-bold text-pink-600">5 mnt</span></div>
+              </div>
+              <div class="progress-track h-1.5 mt-3"><div class="progress-fill" style="width:9%"></div></div>
+            </div>
+          </div>
+          <div class="flex justify-between mt-6">
+            <button class="btn-outline" onclick="goPage('tujuan')">← Kembali</button>
+            <button class="btn-primary" onclick="nextPage('apersepsi')">Lanjut → Apersepsi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE: APERSEPSI ============ -->
+      <div class="page" id="page-apersepsi">
+        <div class="fade-up">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="energy-icon bg-yellow-100">💡</div>
+            <div>
+              <h1 class="text-2xl font-extrabold">Apersepsi</h1>
+              <p class="text-gray-500 text-sm">Membangun koneksi dengan pengetahuan awal</p>
+            </div>
+          </div>
+          <div class="card p-6 mb-5 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200">
+            <div class="text-3xl mb-3 float-anim">🌍</div>
+            <h3 class="font-bold text-lg text-amber-800 dark:text-amber-300 mb-2">Pernahkah kamu bertanya-tanya?</h3>
+            <p class="text-amber-700 dark:text-amber-400 text-sm leading-relaxed mb-4">Mengapa bumi semakin panas setiap tahunnya? Mengapa es di kutub mencair? Apa hubungannya dengan cara kita menggunakan energi sehari-hari?</p>
+            <p class="text-amber-700 dark:text-amber-400 text-sm leading-relaxed">Di media ini, kamu akan menjelajahi dunia <strong>energi</strong> — mulai dari bola yang menggelinding, hingga bagaimana kita secara tidak sadar berkontribusi pada <strong>pemanasan global</strong>.</p>
+          </div>
+          <div class="grid md:grid-cols-3 gap-3 mb-5">
+            <div class="card p-4 text-center hover:border-green-300">
+              <div class="text-3xl mb-2 float-anim" style="animation-delay:0.1s">🚲</div>
+              <p class="font-semibold text-sm">Sepeda Bergerak</p>
+              <p class="text-xs text-gray-500 mt-1">Energi kinetik dari kayuhan pedal</p>
+            </div>
+            <div class="card p-4 text-center hover:border-green-300">
+              <div class="text-3xl mb-2 float-anim" style="animation-delay:0.2s">☀️</div>
+              <p class="font-semibold text-sm">Panel Surya</p>
+              <p class="text-xs text-gray-500 mt-1">Energi surya → energi listrik</p>
+            </div>
+            <div class="card p-4 text-center hover:border-green-300">
+              <div class="text-3xl mb-2 float-anim" style="animation-delay:0.3s">🌡️</div>
+              <p class="font-semibold text-sm">Bumi Memanas</p>
+              <p class="text-xs text-gray-500 mt-1">Efek rumah kaca & CO₂</p>
+            </div>
+          </div>
+          <div class="card p-5">
+            <h3 class="font-bold mb-3">🤔 Pertanyaan Pemantik</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Jawab dalam pikiranmu sebelum belajar:</p>
+            <ol class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <li class="flex gap-2"><span class="text-green-500 font-bold">1.</span> Apa itu energi? Sebutkan 3 bentuk energi yang kamu ketahui!</li>
+              <li class="flex gap-2"><span class="text-green-500 font-bold">2.</span> Mengapa bumi semakin panas? Apa yang menyebabkannya?</li>
+              <li class="flex gap-2"><span class="text-green-500 font-bold">3.</span> Apa yang bisa kamu lakukan untuk menghemat energi di rumah?</li>
+            </ol>
+          </div>
+          <div class="flex justify-between mt-6">
+            <button class="btn-outline" onclick="goPage('waktu')">← Kembali</button>
+            <button class="btn-primary" onclick="nextPage('materi')">Lanjut → Materi Utama</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE: MATERI ============ -->
+      <div class="page" id="page-materi">
+        <div class="fade-up">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="energy-icon bg-green-100">📚</div>
+            <div>
+              <h1 class="text-2xl font-extrabold">Materi Utama</h1>
+              <p class="text-gray-500 text-sm">Energi dan Pemanasan Global</p>
+            </div>
+          </div>
+          <!-- Tabs -->
+          <div class="flex gap-2 mb-4 overflow-x-auto pb-1">
+            <button class="tab-btn active" onclick="switchTab('tab-energi', this)">⚡ Energi</button>
+            <button class="tab-btn" onclick="switchTab('tab-gaya', this)">🔄 Gaya & Gerak</button>
+            <button class="tab-btn" onclick="switchTab('tab-sumber', this)">🔋 Sumber Energi</button>
+            <button class="tab-btn" onclick="switchTab('tab-global', this)">🌍 Pemanasan Global</button>
+          </div>
+
+          <!-- TAB: ENERGI -->
+          <div class="tab-content active" id="tab-energi">
+            <div class="mat-card">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center text-xl">⚡</div>
+                <h3 class="font-bold text-lg">1. Pengertian Energi</h3>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Energi adalah kemampuan untuk melakukan usaha (kerja). Dalam fisika, energi diukur dalam satuan <strong>Joule (J)</strong>. Energi tidak dapat diciptakan maupun dimusnahkan, hanya dapat diubah dari satu bentuk ke bentuk lain.</p>
+            </div>
+            <div class="mat-card">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-xl">🌈</div>
+                <h3 class="font-bold text-lg">2. Bentuk-Bentuk Energi</h3>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-2 text-center text-xs"><div class="text-lg">🔥</div><div class="font-semibold">Kalor</div><div class="text-gray-500">Energi panas</div></div>
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-2 text-center text-xs"><div class="text-lg">⚡</div><div class="font-semibold">Listrik</div><div class="text-gray-500">Aliran muatan</div></div>
+                <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-2 text-center text-xs"><div class="text-lg">🏃</div><div class="font-semibold">Kinetik</div><div class="text-gray-500">Energi gerak</div></div>
+                <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-2 text-center text-xs"><div class="text-lg">🏔️</div><div class="font-semibold">Potensial</div><div class="text-gray-500">Energi posisi</div></div>
+                <div class="bg-orange-50 dark:bg-orange-900/20 rounded-lg p-2 text-center text-xs"><div class="text-lg">☀️</div><div class="font-semibold">Cahaya</div><div class="text-gray-500">Energi radiasi</div></div>
+                <div class="bg-red-50 dark:bg-red-900/20 rounded-lg p-2 text-center text-xs"><div class="text-lg">🔊</div><div class="font-semibold">Bunyi</div><div class="text-gray-500">Energi getaran</div></div>
+              </div>
+            </div>
+            <div class="mat-card">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center text-xl">🏃</div>
+                <h3 class="font-bold text-lg">4. Energi Kinetik</h3>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Energi yang dimiliki benda karena gerakannya. Dirumuskan:</p>
+              <div class="bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-xl p-4 text-center mb-3">
+                <div class="text-2xl font-bold text-green-700 dark:text-green-300 font-mono">Eₖ = ½ × m × v²</div>
+                <div class="text-xs text-gray-500 mt-2">Eₖ: Energi kinetik (J) | m: massa (kg) | v: kecepatan (m/s)</div>
+              </div>
+              <div class="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-3 text-sm">
+                <strong>🚗 Contoh:</strong> Mobil bermassa 1000 kg bergerak 20 m/s memiliki energi kinetik:<br/>
+                Eₖ = ½ × 1000 × 20² = <strong>200.000 J = 200 kJ</strong>
+              </div>
+            </div>
+            <div class="mat-card">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center text-xl">🏔️</div>
+                <h3 class="font-bold text-lg">5. Energi Potensial</h3>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Energi yang dimiliki benda karena posisi atau kedudukannya. Dirumuskan:</p>
+              <div class="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 rounded-xl p-4 text-center mb-3">
+                <div class="text-2xl font-bold text-purple-700 dark:text-purple-300 font-mono">Eₚ = m × g × h</div>
+                <div class="text-xs text-gray-500 mt-2">Eₚ: Energi potensial (J) | m: massa (kg) | g: 10 m/s² | h: ketinggian (m)</div>
+              </div>
+              <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 text-sm">
+                <strong>🏊 Contoh:</strong> Batu 5 kg di ketinggian 20 m memiliki Eₚ = 5 × 10 × 20 = <strong>1000 J</strong>
+              </div>
+            </div>
+            <div class="mat-card">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center text-xl">⚖️</div>
+                <h3 class="font-bold text-lg">6. Hukum Kekekalan Energi</h3>
+              </div>
+              <div class="bg-gradient-to-r from-teal-50 to-green-50 dark:from-teal-900/20 dark:to-green-900/20 rounded-xl p-4 text-center mb-3">
+                <div class="text-lg font-bold text-teal-700 dark:text-teal-300">Eₜₒₜₐₗ = Eₖ + Eₚ = Konstan</div>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Energi mekanik total suatu sistem selalu konstan jika tidak ada gaya luar yang bekerja. Contoh: bola dilempar ke atas – energi kinetik berubah menjadi energi potensial, begitu pula sebaliknya.</p>
+            </div>
+
+            <!-- === MATERI TAMBAHAN: ROLLER COASTER === -->
+            <div class="mat-card" style="border-left-color:#f97316;">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-xl">🎢</div>
+                <h3 class="font-bold text-lg">Energi pada Roller Coaster</h3>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Roller coaster adalah contoh nyata <strong>hukum kekekalan energi mekanik</strong> dalam kehidupan sehari-hari. Tidak ada mesin pendorong di sepanjang lintasan — kereta bergerak murni karena perubahan energi potensial dan energi kinetik!</p>
+              <div class="grid md:grid-cols-3 gap-2 mb-3 text-xs text-center">
+                <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-2.5">
+                  <div class="text-2xl mb-1">🏔️</div>
+                  <div class="font-bold text-purple-700 dark:text-purple-300">Puncak (h maks)</div>
+                  <div class="text-gray-500 mt-0.5">Eₚ maksimum<br/>Eₖ = 0</div>
+                </div>
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-2.5">
+                  <div class="text-2xl mb-1">↕️</div>
+                  <div class="font-bold text-yellow-700 dark:text-yellow-300">Pertengahan</div>
+                  <div class="text-gray-500 mt-0.5">Eₚ + Eₖ<br/>= Konstan</div>
+                </div>
+                <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-2.5">
+                  <div class="text-2xl mb-1">💨</div>
+                  <div class="font-bold text-green-700 dark:text-green-300">Lembah (h=0)</div>
+                  <div class="text-gray-500 mt-0.5">Eₖ maksimum<br/>Eₚ = 0</div>
+                </div>
+              </div>
+              <div class="bg-orange-50 dark:bg-orange-900/20 rounded-lg p-3 text-sm">
+                <strong>💡 Fakta Menarik:</strong> Di titik tertinggi roller coaster, semua energi adalah <em>potensial</em>. Saat meluncur ke bawah, energi potensial berubah menjadi <em>kinetik</em> sehingga kereta melaju kencang tanpa mesin!
+              </div>
+            </div>
+
+            <!-- === MATERI TAMBAHAN: ENERGI ALTERNATIF === -->
+            <div class="mat-card" style="border-left-color:#0d9488;">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center text-xl">🌿</div>
+                <h3 class="font-bold text-lg">Energi Alternatif</h3>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Energi alternatif adalah sumber energi yang dikembangkan sebagai pengganti bahan bakar fosil. Energi ini umumnya berasal dari alam, ramah lingkungan, dan dapat diperbarui.</p>
+              <div class="space-y-3">
+                <!-- Hidrogen -->
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3">
+                  <div class="flex items-center gap-2 mb-1.5">
+                    <span class="text-lg">⚗️</span>
+                    <span class="font-bold text-sm text-blue-700 dark:text-blue-300">Sel Bahan Bakar Hidrogen</span>
+                    <span class="ml-auto text-xs bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded-full">Inovatif</span>
+                  </div>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">Hidrogen bereaksi dengan oksigen menghasilkan listrik. Limbahnya hanya air murni (H₂O) — nol emisi karbon. Digunakan pada kendaraan masa depan (Toyota Mirai, bus hidrogen).</p>
+                </div>
+                <!-- Pasang surut -->
+                <div class="bg-cyan-50 dark:bg-cyan-900/20 rounded-xl p-3">
+                  <div class="flex items-center gap-2 mb-1.5">
+                    <span class="text-lg">🌊</span>
+                    <span class="font-bold text-sm text-cyan-700 dark:text-cyan-300">Energi Pasang Surut (Tidal)</span>
+                    <span class="ml-auto text-xs bg-cyan-100 dark:bg-cyan-800 text-cyan-700 dark:text-cyan-300 px-2 py-0.5 rounded-full">Potensial di RI</span>
+                  </div>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">Memanfaatkan naik-turunnya permukaan laut akibat gravitasi bulan. Turbin di dasar laut berputar menghasilkan listrik. Indonesia sebagai negara kepulauan memiliki potensi sangat besar!</p>
+                </div>
+                <!-- Piezoelektrik -->
+                <div class="bg-pink-50 dark:bg-pink-900/20 rounded-xl p-3">
+                  <div class="flex items-center gap-2 mb-1.5">
+                    <span class="text-lg">👣</span>
+                    <span class="font-bold text-sm text-pink-700 dark:text-pink-300">Energi Piezoelektrik</span>
+                    <span class="ml-auto text-xs bg-pink-100 dark:bg-pink-800 text-pink-700 dark:text-pink-300 px-2 py-0.5 rounded-full">Inovasi Baru</span>
+                  </div>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">Tekanan mekanik (dari langkah kaki, getaran, atau angin) diubah menjadi listrik melalui material piezoelektrik. Lantai stasiun di Tokyo menggunakan sistem ini untuk menghasilkan listrik dari pejalan kaki!</p>
+                </div>
+                <!-- Biomassa -->
+                <div class="bg-lime-50 dark:bg-lime-900/20 rounded-xl p-3">
+                  <div class="flex items-center gap-2 mb-1.5">
+                    <span class="text-lg">🌾</span>
+                    <span class="font-bold text-sm text-lime-700 dark:text-lime-300">Bioenergi (Biomassa & Biogas)</span>
+                    <span class="ml-auto text-xs bg-lime-100 dark:bg-lime-800 text-lime-700 dark:text-lime-300 px-2 py-0.5 rounded-full">Lokal</span>
+                  </div>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">Sampah organik, kotoran hewan, dan limbah pertanian diubah menjadi biogas (CH₄) melalui fermentasi anaerobik. Di Indonesia, biogas dari kotoran sapi sudah digunakan memasak oleh ribuan keluarga petani.</p>
+                </div>
+                <!-- Hubungan dengan roller coaster -->
+                <div class="bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 rounded-xl p-3 border border-orange-200 dark:border-orange-700">
+                  <div class="flex items-center gap-2 mb-1.5">
+                    <span class="text-lg">🎢</span>
+                    <span class="font-bold text-sm text-orange-700 dark:text-orange-300">Regenerative Braking — Roller Coaster Penghasil Listrik!</span>
+                  </div>
+                  <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Konsep roller coaster kini dikembangkan menjadi <strong>energi alternatif</strong>! Saat kereta melambat di bagian rem, energi kinetiknya tidak dibuang sebagai panas, melainkan diubah menjadi energi listrik melalui <em>regenerative braking</em> — mirip cara kerja mobil listrik. Beberapa wahana di Eropa sudah menghasilkan listrik untuk menjalankan atraksi lain di sekitarnya!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: GAYA & GERAK -->
+          <div class="tab-content" id="tab-gaya">
+            <div class="mat-card">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-xl">🔄</div>
+                <h3 class="font-bold text-lg">3. Hubungan Gaya, Gerak & Energi</h3>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">Gaya yang bekerja pada benda akan menghasilkan usaha (kerja) jika benda mengalami perpindahan. Usaha inilah yang mengubah energi benda.</p>
+              <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 rounded-xl p-4 text-center mb-3">
+                <div class="text-xl font-bold text-blue-700 dark:text-blue-300 font-mono">W = F × d</div>
+                <div class="text-xs text-gray-500 mt-1">W: Usaha (J) | F: Gaya (N) | d: Perpindahan (m)</div>
+              </div>
+              <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 text-center mb-3">
+                <div class="text-xl font-bold text-blue-700 dark:text-blue-300 font-mono">W = ΔEₖ = Eₖ₂ − Eₖ₁</div>
+                <div class="text-xs text-gray-500 mt-1">Teorema usaha-energi kinetik</div>
+              </div>
+            </div>
+            <div class="mat-card">
+              <h3 class="font-bold text-lg mb-3">🔄 Perubahan Energi dalam Kehidupan</h3>
+              <div class="space-y-2">
+                <div class="flex items-center gap-3 bg-gray-50 dark:bg-gray-800 rounded-lg p-2.5 text-sm">
+                  <span class="text-xl">🏠</span>
+                  <span class="text-gray-600 dark:text-gray-400">Setrika: <strong>Listrik → Panas</strong></span>
+                </div>
+                <div class="flex items-center gap-3 bg-gray-50 dark:bg-gray-800 rounded-lg p-2.5 text-sm">
+                  <span class="text-xl">💡</span>
+                  <span class="text-gray-600 dark:text-gray-400">Lampu: <strong>Listrik → Cahaya + Panas</strong></span>
+                </div>
+                <div class="flex items-center gap-3 bg-gray-50 dark:bg-gray-800 rounded-lg p-2.5 text-sm">
+                  <span class="text-xl">🚗</span>
+                  <span class="text-gray-600 dark:text-gray-400">Mobil: <strong>Kimia (BBM) → Mekanik → Kinetik</strong></span>
+                </div>
+                <div class="flex items-center gap-3 bg-gray-50 dark:bg-gray-800 rounded-lg p-2.5 text-sm">
+                  <span class="text-xl">🌊</span>
+                  <span class="text-gray-600 dark:text-gray-400">PLTA: <strong>Potensial air → Kinetik → Listrik</strong></span>
+                </div>
+                <div class="flex items-center gap-3 bg-gray-50 dark:bg-gray-800 rounded-lg p-2.5 text-sm">
+                  <span class="text-xl">☀️</span>
+                  <span class="text-gray-600 dark:text-gray-400">Panel surya: <strong>Cahaya → Listrik</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: SUMBER ENERGI -->
+          <div class="tab-content" id="tab-sumber">
+            <div class="mat-card">
+              <h3 class="font-bold text-lg mb-4">🔋 Sumber Energi</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-green-50 dark:bg-green-900/20 rounded-xl p-4">
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="text-2xl">♻️</span>
+                    <h4 class="font-bold text-green-700 dark:text-green-400">Energi Terbarukan</h4>
+                  </div>
+                  <ul class="space-y-1.5 text-sm text-gray-600 dark:text-gray-400">
+                    <li class="flex gap-2"><span>☀️</span> Energi Surya (Panel Surya)</li>
+                    <li class="flex gap-2"><span>💨</span> Energi Angin (Turbin Angin)</li>
+                    <li class="flex gap-2"><span>🌊</span> Energi Air (PLTA)</li>
+                    <li class="flex gap-2"><span>🌋</span> Energi Panas Bumi (Geothermal)</li>
+                    <li class="flex gap-2"><span>🌿</span> Biomassa</li>
+                  </ul>
+                  <div class="mt-3 text-xs text-green-600 font-semibold">✓ Ramah lingkungan, dapat diperbaharui</div>
+                </div>
+                <div class="bg-red-50 dark:bg-red-900/20 rounded-xl p-4">
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="text-2xl">⛽</span>
+                    <h4 class="font-bold text-red-700 dark:text-red-400">Energi Tak Terbarukan</h4>
+                  </div>
+                  <ul class="space-y-1.5 text-sm text-gray-600 dark:text-gray-400">
+                    <li class="flex gap-2"><span>🛢️</span> Minyak Bumi</li>
+                    <li class="flex gap-2"><span>⛏️</span> Batu Bara</li>
+                    <li class="flex gap-2"><span>🔥</span> Gas Alam</li>
+                    <li class="flex gap-2"><span>☢️</span> Nuklir (Uranium)</li>
+                  </ul>
+                  <div class="mt-3 text-xs text-red-600 font-semibold">✗ Terbatas, menghasilkan polusi</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: PEMANASAN GLOBAL -->
+          <div class="tab-content" id="tab-global">
+            <div class="mat-card">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center text-xl">🌡️</div>
+                <h3 class="font-bold text-lg">10. Pemanasan Global</h3>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Pemanasan global adalah meningkatnya suhu rata-rata permukaan bumi akibat peningkatan konsentrasi gas rumah kaca (CO₂, CH₄, N₂O) di atmosfer. Fenomena ini disebabkan oleh aktivitas manusia, terutama pembakaran bahan bakar fosil.</p>
+              <div class="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 rounded-xl p-4">
+                <div class="font-bold text-red-700 dark:text-red-400 mb-2">🔥 Efek Rumah Kaca</div>
+                <div class="flex flex-wrap gap-2 text-xs">
+                  <span class="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 px-2 py-1 rounded">CO₂ ↑</span>
+                  <span class="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-2 py-1 rounded">Suhu ↑</span>
+                  <span class="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded">Es Kutub Mencair</span>
+                  <span class="bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400 px-2 py-1 rounded">Permukaan Laut ↑</span>
+                </div>
+              </div>
+            </div>
+            <div class="mat-card">
+              <h3 class="font-bold text-lg mb-3">⚠️ Dampak Pemanasan Global</h3>
+              <div class="space-y-2 text-sm">
+                <div class="flex gap-3 items-start">
+                  <span class="text-lg">🌊</span>
+                  <div><strong>Naiknya permukaan laut</strong> akibat mencairnya es di kutub → mengancam kota-kota pesisir</div>
+                </div>
+                <div class="flex gap-3 items-start">
+                  <span class="text-lg">🌪️</span>
+                  <div><strong>Cuaca ekstrem</strong> lebih sering terjadi: badai, banjir, kekeringan</div>
+                </div>
+                <div class="flex gap-3 items-start">
+                  <span class="text-lg">🦁</span>
+                  <div><strong>Kepunahan spesies</strong> karena habitat berubah drastis</div>
+                </div>
+                <div class="flex gap-3 items-start">
+                  <span class="text-lg">🌾</span>
+                  <div><strong>Gagal panen</strong> dan krisis pangan akibat perubahan iklim</div>
+                </div>
+              </div>
+            </div>
+            <div class="mat-card" style="border-left-color:#16a34a">
+              <h3 class="font-bold text-lg mb-3">✅ Solusi Mengatasi Pemanasan Global</h3>
+              <div class="grid md:grid-cols-2 gap-2 text-sm">
+                <div class="flex gap-2 items-start"><span class="text-green-500 font-bold">✓</span> Beralih ke energi terbarukan (surya, angin)</div>
+                <div class="flex gap-2 items-start"><span class="text-green-500 font-bold">✓</span> Efisiensi energi di rumah dan industri</div>
+                <div class="flex gap-2 items-start"><span class="text-green-500 font-bold">✓</span> Penghijauan (reboisasi) dan pertanian lestari</div>
+                <div class="flex gap-2 items-start"><span class="text-green-500 font-bold">✓</span> Mengurangi penggunaan kendaraan berbahan bakar fosil</div>
+                <div class="flex gap-2 items-start"><span class="text-green-500 font-bold">✓</span> Daur ulang dan pengurangan limbah</div>
+                <div class="flex gap-2 items-start"><span class="text-green-500 font-bold">✓</span> Kebijakan internasional (Perjanjian Paris)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between mt-6">
+            <button class="btn-outline" onclick="goPage('apersepsi')">← Kembali</button>
+            <button class="btn-primary" onclick="nextPage('simulasi')">Lanjut → Simulasi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE: SIMULASI ============ -->
+      <div class="page" id="page-simulasi">
+        <div class="fade-up">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="energy-icon bg-teal-100">🔬</div>
+            <div>
+              <h1 class="text-2xl font-extrabold">Simulasi Interaktif</h1>
+              <p class="text-gray-500 text-sm">Eksplorasi konsep energi secara visual</p>
+            </div>
+          </div>
+
+          <!-- Simulasi Tabs -->
+          <div class="flex gap-2 mb-4 overflow-x-auto pb-1">
+            <button class="tab-btn active" onclick="switchSimTab('sim-kinetik', this)">🏃 Energi Kinetik</button>
+            <button class="tab-btn" onclick="switchSimTab('sim-potensial', this)">🏔️ Energi Potensial</button>
+            <button class="tab-btn" onclick="switchSimTab('sim-greenhouse', this)">🌍 Efek Rumah Kaca</button>
+          </div>
+
+          <!-- SIM: KINETIK -->
+          <div class="tab-content active" id="sim-kinetik">
+            <div class="card p-5">
+              <h3 class="font-bold mb-4">⚡ Simulasi Energi Kinetik: Benda Bergerak</h3>
+              <div class="sim-canvas h-40 mb-4 relative overflow-hidden" id="canvas-kinetik">
+                <canvas id="kinetic-canvas" class="w-full h-full"></canvas>
+              </div>
+              <div class="grid md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label class="text-xs font-semibold text-gray-500 block mb-1">Massa Benda (kg): <span id="mass-val" class="text-green-600">10</span></label>
+                  <input type="range" min="1" max="50" value="10" class="w-full accent-green-500" id="sim-mass" oninput="updateKinetic()"/>
+                </div>
+                <div>
+                  <label class="text-xs font-semibold text-gray-500 block mb-1">Kecepatan (m/s): <span id="vel-val" class="text-teal-600">10</span></label>
+                  <input type="range" min="1" max="30" value="10" class="w-full accent-teal-500" id="sim-vel" oninput="updateKinetic()"/>
+                </div>
+              </div>
+              <div class="bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-xl p-4 text-center">
+                <div class="text-sm text-gray-500 mb-1">Energi Kinetik</div>
+                <div class="text-3xl font-extrabold grad-text" id="kinetic-result">500 J</div>
+                <div class="text-xs text-gray-400 mt-1">Eₖ = ½ × m × v²</div>
+              </div>
+              <div class="flex gap-3 mt-4">
+                <button class="btn-primary flex-1 text-sm" onclick="startKineticAnim()">▶ Play Animasi</button>
+                <button class="btn-outline flex-1 text-sm" onclick="stopKineticAnim()">⏹ Stop</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SIM: POTENSIAL -->
+          <div class="tab-content" id="sim-potensial">
+            <div class="card p-5">
+              <h3 class="font-bold mb-4">🏔️ Simulasi Energi Potensial: Benda Jatuh</h3>
+              <div class="sim-canvas h-48 mb-4 relative">
+                <canvas id="potential-canvas" class="w-full h-full"></canvas>
+              </div>
+              <div class="grid md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label class="text-xs font-semibold text-gray-500 block mb-1">Massa (kg): <span id="pmass-val" class="text-purple-600">5</span></label>
+                  <input type="range" min="1" max="20" value="5" class="w-full accent-purple-500" id="sim-pmass" oninput="updatePotential()"/>
+                </div>
+                <div>
+                  <label class="text-xs font-semibold text-gray-500 block mb-1">Ketinggian (m): <span id="pheight-val" class="text-indigo-600">10</span></label>
+                  <input type="range" min="1" max="50" value="10" class="w-full accent-indigo-500" id="sim-pheight" oninput="updatePotential()"/>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-3 text-center">
+                  <div class="text-xs text-gray-500 mb-1">Energi Potensial</div>
+                  <div class="text-xl font-extrabold text-purple-700 dark:text-purple-300" id="potential-result">500 J</div>
+                </div>
+                <div class="bg-green-50 dark:bg-green-900/20 rounded-xl p-3 text-center">
+                  <div class="text-xs text-gray-500 mb-1">Ek saat menyentuh tanah</div>
+                  <div class="text-xl font-extrabold text-green-700 dark:text-green-300" id="kinetic-final">500 J</div>
+                </div>
+              </div>
+              <button class="btn-primary w-full mt-4 text-sm" onclick="startFallAnim()">▶ Animasi Jatuh Bebas</button>
+            </div>
+          </div>
+
+          <!-- SIM: GREENHOUSE -->
+          <div class="tab-content" id="sim-greenhouse">
+            <div class="card p-5">
+              <h3 class="font-bold mb-4">🌍 Simulasi Efek Rumah Kaca</h3>
+              <div class="sim-canvas h-52 mb-4 relative">
+                <canvas id="greenhouse-canvas" class="w-full h-full"></canvas>
+              </div>
+              <div class="mb-4">
+                <label class="text-xs font-semibold text-gray-500 block mb-1">Konsentrasi CO₂ (%): <span id="co2-val" class="text-red-600">0.04</span></label>
+                <input type="range" min="4" max="100" value="4" class="w-full accent-red-500" id="sim-co2" oninput="updateGreenhouse()"/>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-red-50 dark:bg-red-900/20 rounded-xl p-3 text-center">
+                  <div class="text-xs text-gray-500 mb-1">Suhu Bumi</div>
+                  <div class="text-xl font-extrabold text-red-700 dark:text-red-300" id="temp-result">15°C</div>
+                </div>
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3 text-center">
+                  <div class="text-xs text-gray-500 mb-1">Status Iklim</div>
+                  <div class="text-sm font-bold text-blue-700 dark:text-blue-300" id="climate-status">Normal</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between mt-6">
+            <button class="btn-outline" onclick="goPage('materi')">← Kembali</button>
+            <button class="btn-primary" onclick="nextPage('contohsoal')">Lanjut → Contoh Soal</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE: CONTOH SOAL ============ -->
+      <div class="page" id="page-contohsoal">
+        <div class="fade-up">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="energy-icon bg-orange-100">📝</div>
+            <div>
+              <h1 class="text-2xl font-extrabold">Contoh Soal</h1>
+              <p class="text-gray-500 text-sm">Level C3–C4 dengan pembahasan lengkap</p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <!-- SOAL 1 -->
+            <div class="card p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded">C3 – Penerapan</span>
+                <span class="text-gray-500 text-xs">Soal 1</span>
+              </div>
+              <p class="font-semibold text-sm mb-3">Sebuah mobil bermassa 800 kg bergerak dengan kecepatan 20 m/s. Berapakah energi kinetik mobil tersebut?</p>
+              <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
+                <div class="text-xs font-bold text-blue-700 dark:text-blue-400 mb-2">📖 Pembahasan:</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                  <div>Diketahui: m = 800 kg, v = 20 m/s</div>
+                  <div>Ditanya: Eₖ = ?</div>
+                  <div>Jawab:</div>
+                  <div class="bg-white dark:bg-gray-800 rounded-lg p-2 font-mono text-xs">Eₖ = ½ × m × v²<br/>Eₖ = ½ × 800 × (20)²<br/>Eₖ = ½ × 800 × 400<br/><strong>Eₖ = 160.000 J = 160 kJ</strong></div>
+                </div>
+              </div>
+            </div>
+            <!-- SOAL 2 -->
+            <div class="card p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded">C4 – Analisis</span>
+                <span class="text-gray-500 text-xs">Soal 2</span>
+              </div>
+              <p class="font-semibold text-sm mb-3">Sebuah batu bermassa 2 kg dilepaskan dari ketinggian 15 m. Jika g = 10 m/s², tentukan kecepatan batu saat menyentuh tanah menggunakan hukum kekekalan energi!</p>
+              <div class="bg-green-50 dark:bg-green-900/20 rounded-xl p-4">
+                <div class="text-xs font-bold text-green-700 dark:text-green-400 mb-2">📖 Pembahasan:</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                  <div>Diketahui: m = 2 kg, h = 15 m, g = 10 m/s², v₀ = 0</div>
+                  <div>Gunakan hukum kekekalan energi: Eₚ₁ = Eₖ₂</div>
+                  <div class="bg-white dark:bg-gray-800 rounded-lg p-2 font-mono text-xs">mgh = ½mv²<br/>2×10×15 = ½×2×v²<br/>300 = v²<br/><strong>v = √300 ≈ 17,3 m/s</strong></div>
+                </div>
+              </div>
+            </div>
+            <!-- SOAL 3 -->
+            <div class="card p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="bg-red-100 text-red-700 text-xs font-bold px-2 py-0.5 rounded">C4 – Analisis</span>
+                <span class="text-gray-500 text-xs">Soal 3</span>
+              </div>
+              <p class="font-semibold text-sm mb-3">Analisislah mengapa penggunaan kendaraan bermotor berbahan bakar fosil secara masif dapat mempercepat proses pemanasan global!</p>
+              <div class="bg-red-50 dark:bg-red-900/20 rounded-xl p-4">
+                <div class="text-xs font-bold text-red-700 dark:text-red-400 mb-2">📖 Pembahasan:</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400 space-y-1.5 leading-relaxed">
+                  <p>Kendaraan bermotor membakar BBM (bahan bakar fosil) untuk menghasilkan energi gerak.</p>
+                  <p>Proses pembakaran menghasilkan gas CO₂ dan gas rumah kaca lain yang terlepas ke atmosfer.</p>
+                  <p>Konsentrasi CO₂ yang tinggi memperkuat efek rumah kaca → menjebak lebih banyak panas di bumi.</p>
+                  <p>Akibatnya suhu bumi meningkat → pemanasan global.</p>
+                  <p><strong>Solusi:</strong> Beralih ke kendaraan listrik berbasis energi terbarukan.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-between mt-6">
+            <button class="btn-outline" onclick="goPage('simulasi')">← Kembali</button>
+            <button class="btn-primary" onclick="nextPage('latihan')">Lanjut → Latihan Soal</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE: LATIHAN ============ -->
+      <div class="page" id="page-latihan">
+        <div class="fade-up">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="energy-icon bg-orange-100">✏️</div>
+            <div>
+              <h1 class="text-2xl font-extrabold">Latihan Soal</h1>
+              <p class="text-gray-500 text-sm">Kerjakan dengan jujur dan mandiri</p>
+            </div>
+          </div>
+          <!-- Progress -->
+          <div class="card p-4 mb-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-semibold">Progress Soal</span>
+              <span class="text-sm font-bold text-green-600" id="quiz-progress-text">0 / 10</span>
+            </div>
+            <div class="progress-track h-3"><div class="progress-fill" id="quiz-progress-bar" style="width:0%"></div></div>
+          </div>
+
+          <!-- Quiz Container -->
+          <div id="quiz-container"></div>
+
+          <!-- Result Panel -->
+          <div id="quiz-result" style="display:none;" class="card p-6 text-center">
+            <div class="text-5xl mb-3" id="quiz-result-emoji">🎉</div>
+            <h3 class="text-2xl font-extrabold mb-1" id="quiz-result-title">Hasil Latihan</h3>
+            <p class="text-gray-500 mb-3" id="quiz-result-msg">—</p>
+            <div class="text-4xl font-extrabold grad-text mb-4" id="quiz-final-score">0/100</div>
+            <div class="w-full h-px bg-gray-100 my-4"></div>
+            <div class="grid grid-cols-3 gap-3 mb-5">
+              <div class="bg-green-50 dark:bg-green-900/20 rounded-xl p-3"><div class="text-xs text-gray-500">Benar</div><div class="font-bold text-green-600" id="quiz-benar">0</div></div>
+              <div class="bg-red-50 dark:bg-red-900/20 rounded-xl p-3"><div class="text-xs text-gray-500">Salah</div><div class="font-bold text-red-500" id="quiz-salah">0</div></div>
+              <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3"><div class="text-xs text-gray-500">Nilai</div><div class="font-bold text-blue-600" id="quiz-nilai">0</div></div>
+            </div>
+            <button class="btn-primary" onclick="nextPage('refleksi')">Lanjut → Refleksi Belajar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE: REFLEKSI ============ -->
+      <div class="page" id="page-refleksi">
+        <div class="fade-up">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="energy-icon bg-pink-100">🪞</div>
+            <div>
+              <h1 class="text-2xl font-extrabold">Refleksi Belajar</h1>
+              <p class="text-gray-500 text-sm">Introspeksi pengalaman belajar hari ini</p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="card p-5">
+              <label class="block font-semibold mb-2 text-sm">1. 💡 Apa yang sudah kamu pahami dari materi ini?</label>
+              <textarea id="ref-paham" class="refleksi-area" placeholder="Tuliskan hal-hal yang sudah kamu pahami..."></textarea>
+            </div>
+            <div class="card p-5">
+              <label class="block font-semibold mb-2 text-sm">2. 🤔 Apa yang masih sulit atau membingungkan?</label>
+              <textarea id="ref-sulit" class="refleksi-area" placeholder="Ceritakan kesulitan yang kamu hadapi..."></textarea>
+            </div>
+            <div class="card p-5">
+              <label class="block font-semibold mb-2 text-sm">3. 📚 Bagaimana caramu mengatasi kesulitan tersebut?</label>
+              <textarea id="ref-solusi" class="refleksi-area" placeholder="Apa solusi yang akan kamu lakukan..."></textarea>
+            </div>
+            <div class="card p-5">
+              <label class="block font-semibold mb-2 text-sm">4. 🌱 Komitmenmu untuk menjaga lingkungan dari dampak pemanasan global:</label>
+              <textarea id="ref-komitmen" class="refleksi-area" placeholder="Tuliskan komitmenmu dalam menjaga lingkungan..."></textarea>
+            </div>
+          </div>
+          <div class="flex justify-between mt-6">
+            <button class="btn-outline" onclick="goPage('latihan')">← Kembali</button>
+            <button class="btn-primary" onclick="submitRefleksi()">✅ Kirim & Selesaikan</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ===== LOGIN PAGE ===== -->
+<div id="login-page" class="min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md">
+    <!-- Logo -->
+    <div class="text-center mb-8">
+      <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-200">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 4L36 12V28L20 36L4 28V12L20 4Z" fill="white" opacity="0.9"/><path d="M20 10L30 15.5V26.5L20 32L10 26.5V15.5L20 10Z" fill="white" opacity="0.5"/></svg>
+      </div>
+      <h1 class="text-3xl font-extrabold grad-text mb-1">Smart Physics Learning</h1>
+      <p class="text-gray-500 text-sm mb-3">Media Pembelajaran Fisika Fase E · Kurikulum Merdeka</p>
+      <div class="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-teal-50 border border-green-200 dark:border-green-700 dark:from-green-900/30 dark:to-teal-900/30 rounded-full px-4 py-2">
+        <span class="text-lg">👩‍🏫</span>
+        <div class="text-left">
+          <div class="text-xs font-bold text-green-700 dark:text-green-400">Dikembangkan oleh: Epi Ulan Sari, S.Pd</div>
+          <div class="text-xs text-teal-600 dark:text-teal-400 font-semibold">SMA Negeri 4 Karimun</div>
+        </div>
+      </div>
+    </div>
+    <!-- Login Card -->
+    <div class="card p-6">
+      <h2 class="text-xl font-bold mb-1">Masuk ke Media Belajar</h2>
+      <p class="text-gray-500 text-sm mb-5">Isi data dirimu untuk mulai belajar</p>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1.5 text-gray-600">Nama Lengkap</label>
+          <input type="text" id="login-nama" class="input-field" placeholder="Contoh: Budi Santoso" autocomplete="name"/>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1.5 text-gray-600">Kelas</label>
+          <input type="text" id="login-kelas" class="input-field" placeholder="Contoh: X.1, X.2, ... X.7" list="daftar-kelas" autocomplete="off"/>
+          <datalist id="daftar-kelas">
+            <option value="X.1"/><option value="X.2"/><option value="X.3"/>
+            <option value="X.4"/><option value="X.5"/><option value="X.6"/>
+            <option value="X.7"/>
+          </datalist>
+          <p class="text-xs text-gray-400 mt-1">Pilih dari daftar atau ketik nama kelas kamu (X.1 – X.7)</p>
+        </div>
+        <button class="btn-primary w-full text-base py-3" onclick="doLogin()">Mulai Belajar 🚀</button>
+      </div>
+      <p class="text-xs text-gray-400 mt-4 text-center">Data aktivitas belajarmu akan tersimpan otomatis ke sistem guru</p>
+    </div>
+    <!-- Topic Preview -->
+    <div class="mt-4 grid grid-cols-3 gap-2">
+      <div class="card p-3 text-center"><div class="text-xl mb-1">⚡</div><div class="text-xs font-semibold text-gray-600">Energi</div></div>
+      <div class="card p-3 text-center"><div class="text-xl mb-1">🔬</div><div class="text-xs font-semibold text-gray-600">Simulasi</div></div>
+      <div class="card p-3 text-center"><div class="text-xl mb-1">🌍</div><div class="text-xs font-semibold text-gray-600">Pemanasan Global</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  SMART PHYSICS LEARNING – JavaScript Utama
+//  Fisika Fase E – Energi dan Pemanasan Global
+// ============================================================
+
+// ---- KONFIGURASI GOOGLE APPS SCRIPT ----
+// Ganti URL_APPS_SCRIPT dengan URL Deploy Web App dari Google Apps Script kamu
+const GAS_URL = "https://script.google.com/macros/s/AKfycbwrOfowRVu5uijRltOEQQsB9KNF3mHFQLuTWNajjvJzJ_9sxsa-DJ7P99kuZXM7sGqCmA/exec";
+
+// ---- STATE GLOBAL ----
+let siswa = { nama: '', kelas: '', loginTime: '' };
+let progress = { petunjuk:false, tujuan:false, waktu:false, apersepsi:false, materi:false, simulasi:false, contohsoal:false, latihan:false, refleksi:false };
+let quizState = { answered: 0, correct: 0, total: 10, scores: [], submitted: false };
+let currentPage = 'petunjuk';
+let isDark = false;
+let animFrames = {};
+
+const PAGES = ['petunjuk','tujuan','waktu','apersepsi','materi','simulasi','contohsoal','latihan','refleksi'];
+
+// ============================================================
+//  LOADING SCREEN
+// ============================================================
+window.addEventListener('load', () => {
+  let p = 0;
+  const bar = document.getElementById('load-bar');
+  const interval = setInterval(() => {
+    p += Math.random() * 18;
+    if (p > 100) p = 100;
+    bar.style.width = p + '%';
+    if (p >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        document.getElementById('loading-screen').style.transition = 'opacity 0.5s';
+        document.getElementById('loading-screen').style.opacity = '0';
+        setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
+      }, 400);
+    }
+  }, 80);
+  buildQuiz();
+  initSimulations();
+});
+
+// ============================================================
+//  DARK MODE
+// ============================================================
+function toggleDark() {
+  isDark = !isDark;
+  document.documentElement.classList.toggle('dark', isDark);
+  document.body.classList.toggle('dark', isDark);
+  document.getElementById('dark-icon').textContent = isDark ? '☀️' : '🌙';
+  redrawSimulations();
+}
+
+// ============================================================
+//  SIDEBAR TOGGLE
+// ============================================================
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// ============================================================
+//  LOGIN
+// ============================================================
+function doLogin() {
+  const nama = document.getElementById('login-nama').value.trim();
+  const kelas = document.getElementById('login-kelas').value;
+  if (!nama) { showToast('⚠️ Nama tidak boleh kosong!', 'error'); return; }
+  if (!kelas) { showToast('⚠️ Pilih kelas terlebih dahulu!', 'error'); return; }
+
+  siswa.nama = nama;
+  siswa.kelas = kelas;
+  siswa.loginTime = new Date().toLocaleString('id-ID');
+
+  // Update UI
+  document.getElementById('nav-nama').textContent = nama;
+  document.getElementById('nav-kelas').textContent = kelas;
+  document.getElementById('sb-waktu').textContent = new Date().toLocaleTimeString('id-ID');
+
+  document.getElementById('login-page').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+
+  showToast('✅ Selamat datang, ' + nama + '!', 'success');
+
+  // Kirim data login ke Google Spreadsheet
+  sendToSpreadsheet({ type: 'login', nama, kelas, loginTime: siswa.loginTime, nilaiLatihan: '', statusBelajar: 'Mulai Belajar', refleksi: '' });
+}
+
+function logout() {
+  if (confirm('Apakah kamu yakin ingin keluar?')) {
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('login-page').style.display = 'flex';
+    document.getElementById('login-nama').value = '';
+    document.getElementById('login-kelas').value = '';
+    siswa = { nama:'', kelas:'', loginTime:'' };
+    progress = { petunjuk:false, tujuan:false, waktu:false, apersepsi:false, materi:false, simulasi:false, contohsoal:false, latihan:false, refleksi:false };
+    quizState = { answered:0, correct:0, total:10, scores:[], submitted:false };
+    goPage('petunjuk');
+    updateAllProgress();
+  }
+}
+
+// ============================================================
+//  NAVIGASI HALAMAN
+// ============================================================
+function goPage(name) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Show target page
+  const target = document.getElementById('page-' + name);
+  if (target) {
+    target.classList.add('active');
+    target.querySelector('.fade-up')?.classList.remove('fade-up');
+    void target.offsetWidth;
+    target.querySelector('[class]')?.classList.add('fade-up');
+  }
+  // Update sidebar
+  document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+  const menuEl = document.getElementById('menu-' + name);
+  if (menuEl) menuEl.classList.add('active');
+
+  currentPage = name;
+  progress[name] = true;
+  markDone(name);
+  updateAllProgress();
+
+  // On mobile, close sidebar after navigation
+  document.getElementById('sidebar')?.classList.remove('open');
+
+  // Special inits
+  if (name === 'simulasi') setTimeout(initSimulations, 100);
+  if (name === 'latihan' && !quizState.submitted) renderCurrentQuiz();
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextPage(name) {
+  goPage(name);
+}
+
+function markDone(name) {
+  const el = document.getElementById('menu-' + name);
+  if (el) el.classList.add('done');
+}
+
+// ============================================================
+//  PROGRESS
+// ============================================================
+function updateAllProgress() {
+  const completed = Object.values(progress).filter(Boolean).length;
+  const total = Object.keys(progress).length;
+  const pct = Math.round((completed / total) * 100);
+
+  document.getElementById('nav-progress').style.width = pct + '%';
+  document.getElementById('nav-progress-text').textContent = pct + '%';
+
+  const status = pct < 30 ? 'Baru Mulai' : pct < 70 ? 'Sedang Belajar' : pct < 100 ? 'Hampir Selesai' : 'Selesai';
+  document.getElementById('sb-status').textContent = status;
+}
+
+// ============================================================
+//  TOAST NOTIFICATION
+// ============================================================
+function showToast(msg, type = 'success') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'toast' + (type === 'error' ? ' error' : type === 'info' ? ' info' : '');
+  toast.innerHTML = `<span>${msg}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(100px)'; toast.style.transition = 'all 0.3s'; setTimeout(() => toast.remove(), 300); }, 3000);
+}
+
+// ============================================================
+//  MATERIAL TABS
+// ============================================================
+function switchTab(id, btn) {
+  const parentTabs = btn.closest('.fade-up') || btn.closest('.page');
+  if (!parentTabs) return;
+  parentTabs.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  parentTabs.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+function switchSimTab(id, btn) { switchTab(id, btn); setTimeout(initSimulations, 100); }
+
+// ============================================================
+//  GOOGLE SPREADSHEET – Kirim Data
+// ============================================================
+function sendToSpreadsheet(data) {
+  if (!GAS_URL || GAS_URL.includes('GANTI_DENGAN')) {
+    console.warn('⚠️ URL Apps Script belum dikonfigurasi. Data tidak tersimpan ke Spreadsheet.');
+    return;
+  }
+  const payload = {
+    timestamp: new Date().toLocaleString('id-ID'),
+    nama: siswa.nama,
+    kelas: siswa.kelas,
+    loginTime: siswa.loginTime,
+    nilaiLatihan: data.nilaiLatihan || '',
+    statusBelajar: data.statusBelajar || '',
+    refleksi: data.refleksi || '',
+    ...data
+  };
+  fetch(GAS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(e => console.warn('Gagal kirim data:', e));
+}
+
+// ============================================================
+//  QUIZ DATA
+// ============================================================
+const quizData = [
+  {
+    q: "Sebuah benda bermassa 4 kg bergerak dengan kecepatan 10 m/s. Berapakah energi kinetiknya?",
+    opts: ["200 J","400 J","800 J","100 J"],
+    ans: 0, // 200 J
+    explain: "Eₖ = ½ × 4 × 10² = ½ × 4 × 100 = 200 J"
+  },
+  {
+    q: "Benda bermassa 5 kg berada di ketinggian 20 m (g=10 m/s²). Energi potensialnya adalah...",
+    opts: ["500 J","750 J","1000 J","250 J"],
+    ans: 2,
+    explain: "Eₚ = m × g × h = 5 × 10 × 20 = 1000 J"
+  },
+  {
+    q: "Hukum Kekekalan Energi menyatakan bahwa energi...",
+    opts: ["Dapat diciptakan dari nol","Dapat dimusnahkan menjadi nol","Tidak dapat diciptakan maupun dimusnahkan","Selalu berubah menjadi panas"],
+    ans: 2,
+    explain: "Energi tidak dapat diciptakan maupun dimusnahkan, hanya dapat berubah bentuk."
+  },
+  {
+    q: "Panel surya mengubah energi...",
+    opts: ["Angin menjadi listrik","Cahaya matahari menjadi listrik","Panas bumi menjadi listrik","Kimia menjadi listrik"],
+    ans: 1,
+    explain: "Panel surya (sel fotovoltaik) mengubah energi cahaya matahari menjadi energi listrik."
+  },
+  {
+    q: "Sumber energi yang terbarukan adalah...",
+    opts: ["Batu bara","Minyak bumi","Gas alam","Energi angin"],
+    ans: 3,
+    explain: "Energi angin adalah terbarukan karena bersumber dari alam dan tidak akan habis."
+  },
+  {
+    q: "Gas utama penyebab efek rumah kaca yang meningkat akibat aktivitas manusia adalah...",
+    opts: ["O₂","N₂","CO₂","H₂"],
+    ans: 2,
+    explain: "CO₂ (karbon dioksida) dari pembakaran bahan bakar fosil adalah gas utama penyebab peningkatan efek rumah kaca."
+  },
+  {
+    q: "Manakah yang BUKAN dampak pemanasan global?",
+    opts: ["Naiknya permukaan laut","Cuaca ekstrem","Bertambahnya es di kutub","Kepunahan spesies"],
+    ans: 2,
+    explain: "Pemanasan global justru menyebabkan es di kutub MENCAIR, bukan bertambah."
+  },
+  {
+    q: "Sebuah bola dilempar ke atas, ketika mencapai titik tertinggi energi kinetiknya...",
+    opts: ["Maksimum","Minimum/nol","Sama seperti awal","Bertambah"],
+    ans: 1,
+    explain: "Saat di titik tertinggi kecepatan = 0, sehingga Eₖ = ½mv² = 0 (minimum/nol)."
+  },
+  {
+    q: "Usaha (W) yang dilakukan gaya F pada benda yang berpindah sejauh d adalah...",
+    opts: ["W = F/d","W = F × d","W = F + d","W = d/F"],
+    ans: 1,
+    explain: "Rumus usaha: W = F × d, di mana F adalah gaya (N) dan d adalah perpindahan (m)."
+  },
+  {
+    q: "Solusi paling efektif untuk mengurangi pemanasan global dari sektor energi adalah...",
+    opts: ["Menanam lebih banyak tanaman hias","Beralih ke sumber energi terbarukan","Menggunakan AC lebih banyak","Menebang hutan untuk lahan pangan"],
+    ans: 1,
+    explain: "Beralih ke sumber energi terbarukan mengurangi emisi CO₂ dari pembakaran bahan bakar fosil secara signifikan."
+  }
+];
+
+// ============================================================
+//  QUIZ ENGINE
+// ============================================================
+function buildQuiz() {
+  quizState.answered = 0;
+  quizState.correct = 0;
+  quizState.scores = [];
+  renderCurrentQuiz();
+}
+
+function renderCurrentQuiz() {
+  const container = document.getElementById('quiz-container');
+  const resultPanel = document.getElementById('quiz-result');
+  if (!container) return;
+
+  if (quizState.submitted) {
+    container.style.display = 'none';
+    resultPanel.style.display = 'block';
+    return;
+  }
+
+  const idx = quizState.answered;
+  if (idx >= quizData.length) {
+    finishQuiz();
+    return;
+  }
+
+  const q = quizData[idx];
+  container.innerHTML = `
+    <div class="card p-5 mb-4 fade-up">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-0.5 rounded">Soal ${idx+1} dari ${quizData.length}</span>
+        <span class="text-xs text-gray-500">Pilih satu jawaban terbaik</span>
+      </div>
+      <p class="font-semibold text-sm mb-4 leading-relaxed">${q.q}</p>
+      <div class="space-y-2" id="opts-${idx}">
+        ${q.opts.map((opt,i) => `<button class="quiz-btn" onclick="answerQuiz(${idx},${i})" id="opt-${idx}-${i}">
+          <span class="font-bold text-gray-400 mr-2">${String.fromCharCode(65+i)}.</span>${opt}
+        </button>`).join('')}
+      </div>
+      <div id="explain-${idx}" style="display:none;" class="mt-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3 text-sm text-blue-700 dark:text-blue-300">
+        <strong>💡 Penjelasan:</strong> ${q.explain}
+      </div>
+    </div>
+  `;
+}
+
+function answerQuiz(qIdx, selectedIdx) {
+  const q = quizData[qIdx];
+  const isCorrect = selectedIdx === q.ans;
+
+  // Disable all buttons
+  for (let i = 0; i < q.opts.length; i++) {
+    const btn = document.getElementById(`opt-${qIdx}-${i}`);
+    if (btn) {
+      btn.disabled = true;
+      if (i === q.ans) btn.classList.add('correct');
+      else if (i === selectedIdx) btn.classList.add('wrong');
+    }
+  }
+
+  // Show explanation
+  const explainEl = document.getElementById(`explain-${qIdx}`);
+  if (explainEl) explainEl.style.display = 'block';
+
+  if (isCorrect) {
+    quizState.correct++;
+    showToast('✅ Jawaban benar!', 'success');
+  } else {
+    showToast('❌ Jawaban kurang tepat. Perhatikan penjelasannya.', 'error');
+  }
+
+  quizState.answered++;
+  quizState.scores.push(isCorrect ? 1 : 0);
+
+  // Update progress
+  const pct = Math.round((quizState.answered / quizData.length) * 100);
+  const bar = document.getElementById('quiz-progress-bar');
+  const txt = document.getElementById('quiz-progress-text');
+  if (bar) bar.style.width = pct + '%';
+  if (txt) txt.textContent = `${quizState.answered} / ${quizData.length}`;
+
+  // Auto advance after 1.5s
+  setTimeout(() => {
+    if (quizState.answered < quizData.length) {
+      renderCurrentQuiz();
+    } else {
+      finishQuiz();
+    }
+  }, 1800);
+}
+
+function finishQuiz() {
+  const nilai = Math.round((quizState.correct / quizData.length) * 100);
+  document.getElementById('quiz-container').style.display = 'none';
+  const result = document.getElementById('quiz-result');
+  result.style.display = 'block';
+
+  const emoji = nilai >= 80 ? '🏆' : nilai >= 60 ? '✅' : '📚';
+  const title = nilai >= 80 ? 'Luar Biasa!' : nilai >= 60 ? 'Bagus!' : 'Terus Belajar!';
+  const msg = nilai >= 80 ? 'Kamu berhasil menguasai materi ini dengan sangat baik!' : nilai >= 60 ? 'Kamu cukup memahami materi, tingkatkan terus!' : 'Ayo pelajari kembali materinya ya!';
+
+  document.getElementById('quiz-result-emoji').textContent = emoji;
+  document.getElementById('quiz-result-title').textContent = title;
+  document.getElementById('quiz-result-msg').textContent = msg;
+  document.getElementById('quiz-final-score').textContent = nilai + ' / 100';
+  document.getElementById('quiz-benar').textContent = quizState.correct;
+  document.getElementById('quiz-salah').textContent = quizData.length - quizState.correct;
+  document.getElementById('quiz-nilai').textContent = nilai;
+  document.getElementById('sb-nilai').textContent = nilai;
+
+  quizState.submitted = true;
+  quizState.nilaiAkhir = nilai;
+
+  // Save to spreadsheet
+  sendToSpreadsheet({ type: 'latihan', nilaiLatihan: nilai, statusBelajar: 'Selesai Latihan' });
+  showToast('✅ Nilai tersimpan ke database guru!', 'success');
+}
+
+// ============================================================
+//  REFLEKSI SUBMIT
+// ============================================================
+function submitRefleksi() {
+  const r1 = document.getElementById('ref-paham').value.trim();
+  const r2 = document.getElementById('ref-sulit').value.trim();
+  const r3 = document.getElementById('ref-solusi').value.trim();
+  const r4 = document.getElementById('ref-komitmen').value.trim();
+
+  if (!r1 || !r4) { showToast('⚠️ Isi setidaknya poin 1 dan 4!', 'error'); return; }
+
+  const refleksiText = `[Paham] ${r1} | [Sulit] ${r2} | [Solusi] ${r3} | [Komitmen] ${r4}`;
+
+  sendToSpreadsheet({
+    type: 'refleksi',
+    nilaiLatihan: quizState.nilaiAkhir || '',
+    statusBelajar: 'Selesai',
+    refleksi: refleksiText
+  });
+
+  progress.refleksi = true;
+  updateAllProgress();
+  showToast('✅ Refleksi berhasil disimpan!');
+
+  setTimeout(() => showCertificate(), 1000);
+}
+
+// ============================================================
+//  CERTIFICATE
+// ============================================================
+function showCertificate() {
+  document.getElementById('cert-name').textContent = siswa.nama;
+  document.getElementById('cert-kelas').textContent = 'Kelas: ' + siswa.kelas;
+  document.getElementById('cert-nilai').textContent = (quizState.nilaiAkhir || '—') + ' / 100';
+  document.getElementById('cert-date').textContent = new Date().toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  const cert = document.getElementById('certificate');
+  cert.style.display = 'flex';
+}
+function closeCert() { document.getElementById('certificate').style.display = 'none'; }
+function printCert() { window.print(); }
+
+// ============================================================
+//  SIMULASI – ENERGI KINETIK
+// ============================================================
+let kineticAnimId = null;
+let ballX = 30;
+
+function updateKinetic() {
+  const m = +document.getElementById('sim-mass').value;
+  const v = +document.getElementById('sim-vel').value;
+  document.getElementById('mass-val').textContent = m;
+  document.getElementById('vel-val').textContent = v;
+  const ek = 0.5 * m * v * v;
+  document.getElementById('kinetic-result').textContent = ek.toLocaleString('id-ID') + ' J';
+  drawKineticStatic(m, v);
+}
+
+function drawKineticStatic(m, v) {
+  const canvas = document.getElementById('kinetic-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth || 400;
+  canvas.height = canvas.offsetHeight || 160;
+  const W = canvas.width, H = canvas.height;
+  const dark = document.documentElement.classList.contains('dark');
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = dark ? '#0f172a' : '#f8fafc';
+  ctx.fillRect(0,0,W,H);
+
+  // Ground
+  ctx.fillStyle = dark ? '#334155' : '#e2e8f0';
+  ctx.fillRect(0, H-20, W, 20);
+
+  // Ball
+  const radius = Math.max(12, Math.min(30, m * 0.8));
+  const speed = v / 30;
+  const bx = ballX;
+  const by = H - 20 - radius;
+
+  // Speed arrows
+  const arrowLen = Math.floor(v * 3);
+  ctx.strokeStyle = '#16a34a';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(bx + radius, by);
+  ctx.lineTo(bx + radius + arrowLen, by);
+  ctx.stroke();
+  ctx.fillStyle = '#16a34a';
+  ctx.beginPath();
+  ctx.moveTo(bx + radius + arrowLen + 8, by);
+  ctx.lineTo(bx + radius + arrowLen - 4, by - 5);
+  ctx.lineTo(bx + radius + arrowLen - 4, by + 5);
+  ctx.fill();
+
+  // Ball gradient
+  const grad = ctx.createRadialGradient(bx-radius*0.3, by-radius*0.3, 1, bx, by, radius);
+  grad.addColorStop(0, '#60a5fa');
+  grad.addColorStop(1, '#1d4ed8');
+  ctx.beginPath();
+  ctx.arc(bx, by, radius, 0, Math.PI*2);
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Label
+  ctx.fillStyle = dark ? '#94a3b8' : '#64748b';
+  ctx.font = '11px Plus Jakarta Sans, sans-serif';
+  ctx.fillText(`v=${v} m/s`, bx + radius + arrowLen/2 - 20, by - 12);
+  ctx.fillText(`m=${m} kg`, bx - 10, by + 4);
+}
+
+function startKineticAnim() {
+  if (kineticAnimId) cancelAnimationFrame(kineticAnimId);
+  const canvas = document.getElementById('kinetic-canvas');
+  if (!canvas) return;
+  canvas.width = canvas.offsetWidth || 400;
+  canvas.height = canvas.offsetHeight || 160;
+  const W = canvas.width, H = canvas.height;
+  const m = +document.getElementById('sim-mass').value;
+  const v = +document.getElementById('sim-vel').value;
+  const radius = Math.max(12, Math.min(30, m * 0.8));
+  let x = radius;
+  const speed = 2 + v * 0.12;
+
+  function animate() {
+    const ctx = canvas.getContext('2d');
+    const dark = document.documentElement.classList.contains('dark');
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = dark ? '#0f172a' : '#f8fafc';
+    ctx.fillRect(0,0,W,H);
+    ctx.fillStyle = dark ? '#334155' : '#e2e8f0';
+    ctx.fillRect(0, H-20, W, 20);
+
+    // Arrows
+    ctx.strokeStyle = '#16a34a'; ctx.lineWidth = 3;
+    const al = Math.floor(v * 2.5);
+    ctx.beginPath(); ctx.moveTo(x+radius, H-20-radius); ctx.lineTo(x+radius+al, H-20-radius); ctx.stroke();
+    ctx.fillStyle = '#16a34a'; ctx.beginPath(); ctx.moveTo(x+radius+al+8, H-20-radius); ctx.lineTo(x+radius+al-4, H-20-radius-5); ctx.lineTo(x+radius+al-4, H-20-radius+5); ctx.fill();
+
+    // Ball
+    const grad = ctx.createRadialGradient(x-radius*0.3, H-20-radius-radius*0.3, 1, x, H-20-radius, radius);
+    grad.addColorStop(0, '#60a5fa'); grad.addColorStop(1, '#1d4ed8');
+    ctx.beginPath(); ctx.arc(x, H-20-radius, radius, 0, Math.PI*2); ctx.fillStyle = grad; ctx.fill();
+
+    x += speed;
+    if (x > W + radius) x = -radius;
+    ballX = x;
+    kineticAnimId = requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+function stopKineticAnim() {
+  if (kineticAnimId) cancelAnimationFrame(kineticAnimId);
+  kineticAnimId = null;
+  updateKinetic();
+}
+
+// ============================================================
+//  SIMULASI – ENERGI POTENSIAL (BENDA JATUH)
+// ============================================================
+let fallAnimId = null;
+
+function updatePotential() {
+  const m = +document.getElementById('sim-pmass').value;
+  const h = +document.getElementById('sim-pheight').value;
+  document.getElementById('pmass-val').textContent = m;
+  document.getElementById('pheight-val').textContent = h;
+  const ep = m * 10 * h;
+  document.getElementById('potential-result').textContent = ep.toLocaleString('id-ID') + ' J';
+  document.getElementById('kinetic-final').textContent = ep.toLocaleString('id-ID') + ' J';
+  drawPotentialStatic(m, h);
+}
+
+function drawPotentialStatic(m, h) {
+  const canvas = document.getElementById('potential-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth || 400;
+  canvas.height = canvas.offsetHeight || 192;
+  const W = canvas.width, H = canvas.height;
+  const dark = document.documentElement.classList.contains('dark');
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = dark ? '#0f172a' : '#f8fafc';
+  ctx.fillRect(0,0,W,H);
+
+  // Ground
+  ctx.fillStyle = dark ? '#334155' : '#e2e8f0';
+  ctx.fillRect(0, H-20, W, 20);
+
+  // Height indicator
+  const maxH = H - 60;
+  const ballY = H - 20 - 15 - Math.min(h/50 * maxH, maxH);
+  ctx.setLineDash([5,5]); ctx.strokeStyle = dark ? '#475569' : '#cbd5e1'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(W/2, ballY+15); ctx.lineTo(W/2, H-20); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Height label
+  ctx.fillStyle = dark ? '#94a3b8' : '#64748b'; ctx.font = '11px sans-serif';
+  ctx.fillText('h = ' + h + ' m', W/2 + 8, (ballY + H-20)/2);
+
+  // Ball
+  const radius = Math.max(10, Math.min(20, m * 0.6));
+  const grad = ctx.createRadialGradient(W/2-radius*0.3, ballY-radius*0.3, 1, W/2, ballY, radius);
+  grad.addColorStop(0, '#a78bfa'); grad.addColorStop(1, '#7c3aed');
+  ctx.beginPath(); ctx.arc(W/2, ballY, radius, 0, Math.PI*2); ctx.fillStyle = grad; ctx.fill();
+}
+
+function startFallAnim() {
+  if (fallAnimId) cancelAnimationFrame(fallAnimId);
+  const canvas = document.getElementById('potential-canvas');
+  if (!canvas) return;
+  canvas.width = canvas.offsetWidth || 400;
+  canvas.height = canvas.offsetHeight || 192;
+  const W = canvas.width, H = canvas.height;
+  const m = +document.getElementById('sim-pmass').value;
+  const h = +document.getElementById('sim-pheight').value;
+  const radius = Math.max(10, Math.min(20, m * 0.6));
+  const startY = H - 20 - 15 - Math.min(h/50 * (H-60), H-60);
+  let y = startY;
+  let vy = 0;
+  const g = 0.3;
+
+  function animate() {
+    const ctx = canvas.getContext('2d');
+    const dark = document.documentElement.classList.contains('dark');
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = dark ? '#0f172a' : '#f8fafc'; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle = dark ? '#334155' : '#e2e8f0'; ctx.fillRect(0, H-20, W, 20);
+
+    // Height line
+    ctx.setLineDash([5,5]); ctx.strokeStyle = dark?'#475569':'#cbd5e1'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(W/2, y+radius); ctx.lineTo(W/2, H-20); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Energy label
+    const progress_fall = (y - startY) / (H - 20 - radius - startY);
+    const ep_current = Math.max(0, Math.round(m*10*h * (1-progress_fall)));
+    const ek_current = m*10*h - ep_current;
+    ctx.fillStyle = dark?'#94a3b8':'#64748b'; ctx.font = '10px sans-serif';
+    ctx.fillText('Ep=' + ep_current + 'J', 8, 20);
+    ctx.fillStyle = '#16a34a';
+    ctx.fillText('Ek=' + ek_current + 'J', 8, 35);
+
+    // Ball
+    const grad = ctx.createRadialGradient(W/2-radius*0.3, y-radius*0.3, 1, W/2, y, radius);
+    grad.addColorStop(0, '#a78bfa'); grad.addColorStop(1, '#7c3aed');
+    ctx.beginPath(); ctx.arc(W/2, y, radius, 0, Math.PI*2); ctx.fillStyle = grad; ctx.fill();
+
+    vy += g; y += vy;
+    if (y >= H - 20 - radius) { y = startY; vy = 0; }
+    fallAnimId = requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// ============================================================
+//  SIMULASI – EFEK RUMAH KACA
+// ============================================================
+function updateGreenhouse() {
+  const co2 = +document.getElementById('sim-co2').value;
+  document.getElementById('co2-val').textContent = (co2/100).toFixed(2);
+  const temp = 15 + (co2 - 4) * 0.55;
+  document.getElementById('temp-result').textContent = temp.toFixed(1) + '°C';
+  const status = temp < 18 ? 'Normal 🌿' : temp < 25 ? 'Hangat ⚠️' : temp < 35 ? 'Panas 🔥' : 'Kritis! 🆘';
+  document.getElementById('climate-status').textContent = status;
+  drawGreenhouse(co2, temp);
+}
+
+function drawGreenhouse(co2, temp) {
+  const canvas = document.getElementById('greenhouse-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth || 400;
+  canvas.height = canvas.offsetHeight || 208;
+  const W = canvas.width, H = canvas.height;
+  const dark = document.documentElement.classList.contains('dark');
+  const intensity = Math.min(co2 / 100, 1);
+
+  ctx.clearRect(0,0,W,H);
+
+  // Sky gradient
+  const skyGrad = ctx.createLinearGradient(0,0,0,H*0.7);
+  const r = Math.round(135 + intensity * 120);
+  const g2 = Math.round(206 - intensity * 100);
+  skyGrad.addColorStop(0, `rgba(${r},${g2},235,0.8)`);
+  skyGrad.addColorStop(1, `rgba(${r-30},${g2+20},200,0.3)`);
+  ctx.fillStyle = skyGrad; ctx.fillRect(0,0,W,H*0.7);
+
+  // Ground
+  const groundGrad = ctx.createLinearGradient(0, H*0.7, 0, H);
+  groundGrad.addColorStop(0, '#4ade80'); groundGrad.addColorStop(1, '#166534');
+  ctx.fillStyle = groundGrad; ctx.fillRect(0, H*0.7, W, H*0.3);
+
+  // Sun
+  ctx.shadowBlur = 20; ctx.shadowColor = 'rgba(251,191,36,0.8)';
+  ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(W*0.85, H*0.1, 22, 0, Math.PI*2); ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Sun rays going down
+  for (let i = 0; i < 6; i++) {
+    const angle = (i / 6) * Math.PI + Math.PI * 0.1;
+    ctx.strokeStyle = 'rgba(251,191,36,0.5)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(W*0.85 + Math.cos(angle)*25, H*0.1 + Math.sin(angle)*25);
+    ctx.lineTo(W*0.85 + Math.cos(angle)*(25+40), H*0.1 + Math.sin(angle)*(25+40)); ctx.stroke();
+  }
+
+  // CO2 cloud particles
+  const numParticles = Math.floor(intensity * 40) + 5;
+  for (let i = 0; i < numParticles; i++) {
+    const px = (i * 73 % W);
+    const py = (i * 31 % (H*0.5));
+    const alpha = 0.2 + intensity * 0.4;
+    ctx.fillStyle = `rgba(150,80,20,${alpha})`;
+    ctx.font = '9px sans-serif'; ctx.fillText('CO₂', px, py + 20);
+  }
+
+  // Greenhouse effect arrows (trapped heat)
+  if (intensity > 0.2) {
+    for (let i = 0; i < 3; i++) {
+      const ax = W * (0.2 + i * 0.25);
+      ctx.strokeStyle = `rgba(239,68,68,${intensity * 0.7})`; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(ax, H*0.65); ctx.lineTo(ax, H*0.2); ctx.stroke();
+      // Arrow head
+      ctx.fillStyle = `rgba(239,68,68,${intensity * 0.7})`;
+      ctx.beginPath(); ctx.moveTo(ax, H*0.18); ctx.lineTo(ax-5, H*0.23); ctx.lineTo(ax+5, H*0.23); ctx.fill();
+    }
+  }
+
+  // Temperature indicator
+  ctx.fillStyle = dark ? 'rgba(30,41,59,0.8)' : 'rgba(255,255,255,0.8)';
+  ctx.beginPath(); ctx.roundRect(8, 8, 90, 30, 6); ctx.fill();
+  ctx.fillStyle = temp > 30 ? '#ef4444' : temp > 20 ? '#f97316' : '#16a34a';
+  ctx.font = 'bold 13px sans-serif'; ctx.fillText('🌡️ ' + temp.toFixed(1) + '°C', 16, 28);
+}
+
+// ============================================================
+//  INIT ALL SIMULATIONS
+// ============================================================
+function initSimulations() {
+  updateKinetic();
+  updatePotential();
+  updateGreenhouse();
+}
+
+function redrawSimulations() {
+  const m = +document.getElementById('sim-mass')?.value || 10;
+  const v = +document.getElementById('sim-vel')?.value || 10;
+  const pm = +document.getElementById('sim-pmass')?.value || 5;
+  const ph = +document.getElementById('sim-pheight')?.value || 10;
+  const co2 = +document.getElementById('sim-co2')?.value || 4;
+  drawKineticStatic(m, v);
+  drawPotentialStatic(pm, ph);
+  drawGreenhouse(co2, 15 + (co2-4)*0.55);
+}
+
+// ============================================================
+//  RESPONSIVE – Show sidebar toggle on mobile
+// ============================================================
+(function() {
+  function checkMobile() {
+    const btn = document.getElementById('sidebar-toggle');
+    const progressWrap = document.getElementById('nav-progress-wrap');
+    const userBadge = document.getElementById('nav-user-badge');
+    if (!btn) return;
+    if (window.innerWidth < 768) {
+      btn.style.display = 'block';
+      if (progressWrap) progressWrap.style.display = 'none';
+      if (userBadge) userBadge.style.display = 'none';
+    } else {
+      btn.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'flex';
+      if (userBadge) userBadge.style.display = 'flex';
+    }
+  }
+  window.addEventListener('resize', () => { checkMobile(); if(currentPage==='simulasi') initSimulations(); });
+  window.addEventListener('load', checkMobile);
+})();
+
+</script>
+</body>
+</html>
